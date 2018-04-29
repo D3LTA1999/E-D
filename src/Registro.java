@@ -215,6 +215,7 @@ public class Registro extends javax.swing.JFrame {
         });
         jPanel1.add(dpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, 200, 30));
 
+        back.setBackground(new java.awt.Color(233, 247, 247));
         back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backMouseEntered(evt);
