@@ -1,4 +1,7 @@
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import javafx.scene.paint.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -19,11 +22,12 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        CargarLista();
         this.setLocationRelativeTo(null);
         resetColor(ingresar);
         resetColor(registrar);
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Coins_96px_1.png")).getImage());
-        
+
     }
 
     /**
@@ -214,6 +218,9 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 30, 30));
 
         ingresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ingresarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ingresarMouseEntered(evt);
             }
@@ -271,7 +278,7 @@ public class Principal extends javax.swing.JFrame {
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(197, 197, 197));
     }
-    
+
     public void resetColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(240, 240, 240));
     }
@@ -311,7 +318,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void ingresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseExited
         resetColor(ingresar);
-
     }//GEN-LAST:event_ingresarMouseExited
 
     private void registrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrarMouseClicked
@@ -320,7 +326,21 @@ public class Principal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_registrarMouseClicked
 
-    
+    private void ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseClicked
+        Nodo_Usuario p = ptrU;
+        while(p != null){
+            if (pass_login.getText().equals(p.getPass())&&user_login.getText().toUpperCase().equals(p.getUser())){
+                System.out.println("BIENVENIDO");
+            }else{
+                System.out.println("NO");
+            }
+            System.out.println(p.getPass() + p.getUser());
+            p = p.getLink();
+        }
+                
+        
+    }//GEN-LAST:event_ingresarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -377,4 +397,77 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel registrar;
     private javax.swing.JTextField user_login;
     // End of variables declaration//GEN-END:variables
+
+    Nodo_Usuario ptrU = null;
+
+    public void CargarLista() {
+        Nodo_Usuario p;
+        p = ptrU;
+        String ruta = "usuarios.txt";
+        File archivo_productos = new File(ruta);
+        if (archivo_productos.exists()) {
+            ptrU = null;
+            String nombre = "", apellido = "", cedula = "", pass = "", user = "", tipo = "";
+            File archivo;
+            FileReader fr = null;
+            BufferedReader br = null;
+            try {
+                archivo = new File("usuarios.txt");
+                fr = new FileReader(archivo);
+                br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    int punt = 0;
+                    int cont = 0;
+                    for (int i = 0; i < linea.length(); i++) {
+                        if (linea.substring(i, i + 1).equals(";")) {
+                            if (punt == 0) {
+                                user = linea.substring(cont, i);
+                            }
+                            if (punt == 1) {
+                                pass = linea.substring(cont, i);
+                            }
+                            if (punt == 2) {
+                                tipo = linea.substring(cont, i);
+                            }
+                            if (punt == 3) {
+                                cedula = linea.substring(cont, i);
+                            }
+                            if (punt == 4) {
+                                nombre = linea.substring(cont, i);
+                            }
+                            if (punt == 5) {
+                                apellido = linea.substring(cont, i);
+                            }
+                            punt++;
+                            cont = i + 1;
+                        }
+                    }
+                    if (ptrU == null) {
+                        ptrU = new Nodo_Usuario(nombre, apellido, cedula, pass, tipo, user, null);
+                        ptrU.setLink(null);
+                        p = ptrU;
+                    } else {
+                        Nodo_Usuario q = new Nodo_Usuario(nombre, apellido, cedula, pass, tipo, user, null);
+                        p.setLink(q);
+                        p = q;
+                    }
+                }
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (null != fr) {
+                        fr.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+        } else {
+            System.out.println("No hay archivo");
+        }
+
+    }
 }

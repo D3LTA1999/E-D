@@ -185,7 +185,6 @@ Nodo_Productos ptr = null, ult = null;
             Agregar_Productos();
         } else {
             System.out.println("No hay archivo");
-
         }
 
     }

@@ -3,6 +3,4 @@ ESSoSolSolaSolanSolano;2116;Bodega;1234;Erick;Solano
 rickSola;4083;;12345;Erick;Solano;
 rickSola;6047;;12345;Erick;Solano;
 rickSola;7850;Bodega;12345;Erick;Solano;
-Esola;4207;Ventas;123;Erick;solano;
-ESOLA;1812;Bodega;1234;Erick;solano;
 ESOLA;1090;Bodega;12345;erick;solano;
