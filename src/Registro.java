@@ -16,9 +16,9 @@ import javax.swing.JPanel;
  * @author daalb
  */
 public class Registro extends javax.swing.JFrame {
-    
+
     Usuario us = new Usuario();
-    
+
     public Registro() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -325,15 +325,15 @@ public class Registro extends javax.swing.JFrame {
 
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(197, 197, 197));
-        
+
     }
-    
+
     public void resetColor(JPanel panel) {
         if (panel.equals(registrar)) {
             panel.setBackground(new java.awt.Color(164, 207, 190));
         } else {
             panel.setBackground(new java.awt.Color(240, 240, 240));
-            
+
         }
     }
     //Fin metodos del diseño
@@ -347,10 +347,14 @@ public class Registro extends javax.swing.JFrame {
         us.setCedula(leer_cedula());
         us.setTipo(leer_tpuser());
         System.out.println(leer_tpuser());
-        us.llenado(us.getNombres(), us.getApellidos(), us.getCedula(), us.crearPass(), us.getTipo(), us.crearUser(us.getNombres(), us.getApellidos()));
-        
+        if (!leer_tpuser().equals("")) {
+            us.llenado(us.getNombres(), us.getApellidos(), us.getCedula(), us.crearPass(), us.getTipo(), us.crearUser(us.getNombres(), us.getApellidos()));
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, eleccione un departamento", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
-    
+
     public String leer_nombre() {
         try {
             String nombre = nom.getText();
@@ -359,7 +363,7 @@ public class Registro extends javax.swing.JFrame {
             return null;
         }
     }
-    
+
     public String leer_apellido() {
         try {
             String apellido = ape.getText();
@@ -368,7 +372,7 @@ public class Registro extends javax.swing.JFrame {
             return null;
         }
     }
-    
+
     public String leer_cedula() {
         try {
             String cedula = ced.getText();
@@ -377,14 +381,15 @@ public class Registro extends javax.swing.JFrame {
             return null;
         }
     }
-    
+
     public String leer_tpuser() {
+
         if (dpto.getSelectedItem().equals("Bodega")) {
             return "Bodega";
         } else if (dpto.getSelectedItem().equals("Ventas")) {
             return "Ventas";
         } else if (dpto.getSelectedItem().equals("Seleccionar departamento")) {
-            JOptionPane.showMessageDialog(null, "Por favor, eleccione un departamento", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return "";
         }
         return "";
     }
@@ -453,7 +458,7 @@ public class Registro extends javax.swing.JFrame {
     private void apeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_apeActionPerformed
-    
+
     int xx, xy;
 
     /**

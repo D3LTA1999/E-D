@@ -64,20 +64,26 @@ public class Usuario {
 
     public String crearUser(String nombres, String apellidos) {
         String n = "", a = "", user = "";
-        int j = 0;
-        boolean sw = true;
-        for (int i = 0; i < 1; i++) {
-            n = n + nombres.substring(0, i + 1);
+//        int j = 0;
+//        boolean sw = true;
+//        for (int i = 0; i < 1; i++) {
+//            n = n + nombres.substring(0, i + 1);
+//        }
+//        while (j < apellidos.length() && sw == true) {
+//            if (apellidos.substring(0, j).equals(" ")) {
+//                sw = false;
+//            } else {
+//                a = a + apellidos.substring(0, j + 1);
+//            }
+//            j++;
+//        }
+//        user = n + a;
+        if (apellidos.length() < 4) {
+            user = nombres.substring(0, 1) + apellidos.substring(0, apellidos.length());
+        } else {
+            user = nombres.substring(0, 1) + apellidos.substring(0, 4);
         }
-        while (j < apellidos.length() && sw == true) {
-            if (apellidos.substring(0, j).equals(" ")) {
-                sw = false;
-            } else {
-                a = a + apellidos.substring(0, j + 1);
-            }
-            j++;
-        }
-        user = n + a;
+        user = user.toUpperCase();
         return user;
     }
 
@@ -92,7 +98,7 @@ public class Usuario {
         try {
             FileWriter fw = new FileWriter(users, true);
             PrintWriter pw = new PrintWriter(fw);
-            pw.println(user + ";" + pass + ";" + tipo + ";" + cedula + ";" + nombres + ";" + apellidos);
+            pw.println(user + ";" + pass + ";" + tipo + ";" + cedula + ";" + nombres + ";" + apellidos + ";");
             pw.close();
             fw.close();
         } catch (Exception e) {
