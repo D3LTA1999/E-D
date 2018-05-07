@@ -1,6 +1,0 @@
-DAAlAlbAlboAlborAlbor Albor RAlbor RoAlbor RojAlbor RojaAlbor Rojas;5069;Bodega;1234097819;Diego Antonio;Albor Rojas
-ESSoSolSolaSolanSolano;2116;Bodega;1234;Erick;Solano
-rickSola;4083;;12345;Erick;Solano;
-rickSola;6047;;12345;Erick;Solano;
-rickSola;7850;Bodega;12345;Erick;Solano;
-ESOLA;1090;Bodega;12345;erick;solano;

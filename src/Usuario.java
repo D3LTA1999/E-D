@@ -62,36 +62,24 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public String crearUser(String nombres, String apellidos) {
-        String n = "", a = "", user = "";
-//        int j = 0;
-//        boolean sw = true;
-//        for (int i = 0; i < 1; i++) {
-//            n = n + nombres.substring(0, i + 1);
-//        }
-//        while (j < apellidos.length() && sw == true) {
-//            if (apellidos.substring(0, j).equals(" ")) {
-//                sw = false;
-//            } else {
-//                a = a + apellidos.substring(0, j + 1);
-//            }
-//            j++;
-//        }
-//        user = n + a;
-        if (apellidos.length() < 4) {
-            user = nombres.substring(0, 1) + apellidos.substring(0, apellidos.length());
-        } else {
-            user = nombres.substring(0, 1) + apellidos.substring(0, 4);
-        }
-        user = user.toUpperCase();
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getUser() {
         return user;
     }
 
-    public String crearPass() {
-        int contra;
-        contra = (int) (Math.random() * 9999) + 1000;
-        return String.valueOf(contra);
+    public void setUser(String user) {
+        this.user = user;
     }
+
+   
+   
 
     public void llenado(String nombres, String apellidos, String cedula, String pass, String tipo, String user) throws IOException {//Metodo para llenar
         File users = new File("usuarios.txt");

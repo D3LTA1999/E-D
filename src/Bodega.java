@@ -164,7 +164,7 @@ public class Bodega extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(108, 110, 88));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Precio de costo");
+        jLabel8.setText("Precio de compra");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 110, 30));
 
         nom.addActionListener(new java.awt.event.ActionListener() {

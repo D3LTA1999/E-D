@@ -347,12 +347,28 @@ public class Registro extends javax.swing.JFrame {
         us.setCedula(leer_cedula());
         us.setTipo(leer_tpuser());
         System.out.println(leer_tpuser());
+        us.setUser(crearUser(us.getNombres(), us.getApellidos()));
+        us.setPass(crearPass());
         if (!leer_tpuser().equals("")) {
-            us.llenado(us.getNombres(), us.getApellidos(), us.getCedula(), us.crearPass(), us.getTipo(), us.crearUser(us.getNombres(), us.getApellidos()));
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, eleccione un departamento", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            us.llenado(us.getNombres(), us.getApellidos(), us.getCedula(), crearPass(), us.getTipo(), crearUser(us.getNombres(), us.getApellidos()));
         }
 
+    }
+    public String crearUser(String nombres, String apellidos) {
+        String n = "", a = "", user = "";
+        if (apellidos.length() < 5) {
+            user = nombres.substring(0, 1) + apellidos.substring(0, apellidos.length());
+        } else {
+            user = nombres.substring(0, 1) + apellidos.substring(0, 5);
+        }
+        user = user.toUpperCase();
+        return user;
+    }
+
+    public String crearPass() {
+        int contra;
+        contra = (int) (Math.random() * 9999) + 1000;
+        return String.valueOf(contra);
     }
 
     public String leer_nombre() {
@@ -448,11 +464,21 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_backMousePressed
 
     private void registrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrarMousePressed
-        try {
-            escribir_cuenta();
-        } catch (IOException ex) {
-            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+        if (dpto.getSelectedItem().equals("Seleccionar departamento")) {
+            JOptionPane.showMessageDialog(null, "Escoja un departamento porfavor");
+        } else {
+            try {
+                escribir_cuenta();
+                User_Contra uc = new User_Contra();
+                System.out.println(us.getUser());
+                System.out.println(us.getPass());
+                uc.campos(us.getUser(), us.getPass());
+                uc.setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }//GEN-LAST:event_registrarMousePressed
 
     private void apeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apeActionPerformed
