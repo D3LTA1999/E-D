@@ -152,14 +152,17 @@ public class User_Contra extends javax.swing.JFrame {
     public void campos(String user, String pass) {
         this.user.setText(user);
         this.pass.setText(pass);
-
+        
     }
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        System.exit(0);
+        Registro rg = new Registro();
+        rg.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_jLabel2MouseClicked
     int xx, xy;
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed

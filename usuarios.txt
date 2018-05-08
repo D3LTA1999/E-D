@@ -1,0 +1,2 @@
+JBARRA;9616;Ventas;1010132819;Julytza Camila;Barraza Marimon;
+EMOREN;2413;Bodega;234567890;Eyleen Paola;Moreno Guitierrez;
