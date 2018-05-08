@@ -353,6 +353,7 @@ public class Registro extends javax.swing.JFrame {
         }
 
     }
+
     public String crearUser(String nombres, String apellidos) {
         String n = "", a = "", user = "";
         if (apellidos.length() < 5) {
@@ -425,7 +426,9 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseDragged
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        System.exit(0);
+        this.dispose();
+        Principal pr = new Principal();
+        pr.setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void cedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedActionPerformed
