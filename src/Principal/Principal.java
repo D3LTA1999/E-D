@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import javafx.scene.paint.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -327,23 +328,29 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_registrarMouseClicked
 
     private void ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseClicked
+        boolean sw = true;
         Nodo_Usuario p = ptrU;
-        while (p != null) {
+        while (p != null && sw == true) {
             if (pass_login.getText().equals(p.getPass()) && user_login.getText().toUpperCase().equals(p.getUser())) {
-                if (p.getTipo().equals("Bodega")) {
-                    Bodega bo = new Bodega();
-                    this.dispose();
-                } else {
-                    if (p.getTipo().equals("Ventas")) {
-                        Venta Ve = new Venta();
-                        Ve.setVisible(true);
-                        this.dispose();
-                    }
-                }
+                sw = false;
+            } else {
+                p = p.getLink();
             }
-            System.out.println(p.getPass() + p.getUser());
-            p = p.getLink();
         }
+        if (p.getTipo().equals("Bodega") && sw == false) {
+            Bodega bo = new Bodega();
+            bo.setVisible(true);
+            this.dispose();
+        } else if (p.getTipo().equals("Ventas") && sw == false) {
+            Venta ve = new Venta();
+            ve.setVisible(true);
+            this.dispose();
+        } else if (sw == true) {
+            JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrecto", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        System.out.println(p.getPass() + p.getUser());
+
     }//GEN-LAST:event_ingresarMouseClicked
 
     /**
@@ -360,16 +367,24 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
