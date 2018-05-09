@@ -328,17 +328,23 @@ public class Principal extends javax.swing.JFrame {
 
     private void ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseClicked
         Nodo_Usuario p = ptrU;
-        while(p != null){
-            if (pass_login.getText().equals(p.getPass())&&user_login.getText().toUpperCase().equals(p.getUser())){
-                System.out.println("BIENVENIDO");
-            }else{
-                System.out.println("NO");
+        while (p != null) {
+            if (pass_login.getText().equals(p.getPass()) && user_login.getText().toUpperCase().equals(p.getUser())) {
+                if (p.getTipo().equals("Bodega")) {
+                    Bodega Bo = new Bodega();
+                    Bo.setVisible(true);
+                    this.dispose();
+                } else {
+                    if (p.getTipo().equals("Ventas")) {
+                        Venta Ve = new Venta();
+                        Ve.setVisible(true);
+                        this.dispose();
+                    }
+                }
             }
             System.out.println(p.getPass() + p.getUser());
             p = p.getLink();
         }
-                
-        
     }//GEN-LAST:event_ingresarMouseClicked
 
     /**
