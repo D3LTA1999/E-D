@@ -12,15 +12,17 @@ public class Nodo_Productos {
 
     String Nombre;
     int Cantidad;
-    float Precio;
+    float PrecioCompra;
+    float PrecioVenta;
     int Ramdom;
     Nodo_Productos Rlink;
     Nodo_Productos Llink;
 
-    public Nodo_Productos(String Nombre, int Cantidad, float Precio, int Ramdom, Nodo_Productos Rlink, Nodo_Productos Llink) {
+    public Nodo_Productos(String Nombre, int Cantidad, float PrecioCompra, float PrecioVenta, int Ramdom, Nodo_Productos Rlink, Nodo_Productos Llink) {
         this.Nombre = Nombre;
         this.Cantidad = Cantidad;
-        this.Precio = Precio;
+        this.PrecioCompra = PrecioCompra;
+        this.PrecioVenta = PrecioVenta;
         this.Ramdom = Ramdom;
         this.Rlink = Rlink;
         this.Llink = Llink;
@@ -42,12 +44,20 @@ public class Nodo_Productos {
         this.Cantidad = Cantidad;
     }
 
-    public float getPrecio() {
-        return Precio;
+    public float getPrecioCompra() {
+        return PrecioCompra;
     }
 
-    public void setPrecio(float Precio) {
-        this.Precio = Precio;
+    public void setPrecioCompra(float PrecioCompra) {
+        this.PrecioCompra = PrecioCompra;
+    }
+
+    public float getPrecioVenta() {
+        return PrecioVenta;
+    }
+
+    public void setPrecioVenta(float PrecioVenta) {
+        this.PrecioVenta = PrecioVenta;
     }
 
     public int getRamdom() {
@@ -75,4 +85,5 @@ public class Nodo_Productos {
     }
     
     
+
 }
