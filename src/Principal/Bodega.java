@@ -1,7 +1,16 @@
-package Principal;
 
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,6 +43,126 @@ public class Bodega extends javax.swing.JFrame {
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(197, 197, 197));
     }
+    Nodo_Productos ptr = null, ult = null;
+
+    public void Actualizar() {
+        Nodo_Productos p = ptr;
+        String ruta = "archivo_productos.txt";
+        File archivo_productos = new File(ruta);
+        if (archivo_productos.exists()) {
+            ptr = null;
+            ult = null;
+            String Nombre = "", PrecioCompra = "", PrecioVenta = " ", Cantidad = "", Random = "";
+            File archivo;
+            FileReader fr = null;
+            BufferedReader br = null;
+            try {
+                archivo = new File("archivo_productos.txt");
+                fr = new FileReader(archivo);
+                br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    int punt = 0;
+                    int cont = 0;
+                    for (int i = 0; i < linea.length(); i++) {
+                        if (linea.substring(i, i + 1).equals(";")) {
+                            if (punt == 0) {
+                                Nombre = linea.substring(cont, i);
+                            }
+                            if (punt == 1) {
+                                Cantidad = linea.substring(cont, i);
+                            }
+                            if (punt == 2) {
+                                PrecioCompra = linea.substring(cont, i);
+                            }
+                            if (punt == 3) {
+                                PrecioVenta = linea.substring(cont, i);
+                            }
+                            if (punt == 4) {
+                                Random = linea.substring(cont, i);
+                            }
+
+                            punt++;
+                            cont = i + 1;
+                        }
+                    }
+                    if (ptr == null) {
+                        ptr = new Nodo_Productos(Nombre, Integer.parseInt(Cantidad), Float.parseFloat(PrecioCompra), Float.parseFloat(PrecioVenta), Integer.parseInt(Random), null, null);
+                        ptr.setLlink(null);
+                        p = ptr;
+                    } else {
+                        Nodo_Productos q = new Nodo_Productos(Nombre, Integer.parseInt(Cantidad), Float.parseFloat(PrecioCompra), Float.parseFloat(PrecioVenta), Integer.parseInt(Random), null, null);
+                        p.setRlink(q);
+                        q.setLlink(p);
+                        p = q;
+                    }
+                    p.setRlink(null);
+                    ult = p;
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (null != fr) {
+                        fr.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+
+        } else {
+            System.out.println("No hay archivo");
+        }
+
+    }
+
+    public void Actualizar_Archivo() {
+        String ruta = "archivo_productos.txt";
+        File archivo_productos = new File(ruta);
+        BufferedWriter BFW = null;
+        if (archivo_productos.exists()) {
+            try {
+                BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
+            } catch (IOException ex) {
+                Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
+            } catch (IOException ex) {
+                Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        FileWriter archivo = null;
+        PrintWriter PW = null;
+        int cont = 0;
+        try {
+            archivo = new FileWriter("archivo_productos.txt", true);
+            PW = new PrintWriter(archivo);
+            Nodo_Productos p = ptr;
+            while (p != null) {
+                PW.println(p.getNombre() + ";" + p.getCantidad() + ";" + p.getPrecioCompra() + ";" + p.getPrecioVenta() + ";" + p.getRamdom() + ";");
+                p = p.getRlink();
+                System.out.println(cont++);
+            }
+            BFW.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != archivo) {
+                    archivo.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        Actualizar();
+    }
 
     public void resetColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(240, 240, 240));
@@ -59,18 +188,15 @@ public class Bodega extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        nom = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         pv = new javax.swing.JTextField();
-        cant = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
         pc = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_bodega = new javax.swing.JTable();
         add = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 110, 88));
@@ -172,12 +298,12 @@ public class Bodega extends javax.swing.JFrame {
         jLabel8.setText("Precio de compra");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 110, 30));
 
-        nom.addActionListener(new java.awt.event.ActionListener() {
+        nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomActionPerformed(evt);
+                nombreActionPerformed(evt);
             }
         });
-        jPanel1.add(nom, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 190, 30));
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 190, 30));
 
         pv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,12 +312,12 @@ public class Bodega extends javax.swing.JFrame {
         });
         jPanel1.add(pv, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, 140, 30));
 
-        cant.addActionListener(new java.awt.event.ActionListener() {
+        cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantActionPerformed(evt);
+                cantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(cant, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 60, 30));
+        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 60, 30));
 
         pc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,6 +363,14 @@ public class Bodega extends javax.swing.JFrame {
         jLabel4.setText("Agregar");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Add_30px.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel9MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
         add.setLayout(addLayout);
@@ -261,42 +395,6 @@ public class Bodega extends javax.swing.JFrame {
         );
 
         jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 80, 70));
-
-        jPanel3.setBackground(new java.awt.Color(233, 247, 247));
-        jPanel3.setForeground(new java.awt.Color(164, 207, 190));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Sell_30px.png"))); // NOI18N
-
-        jLabel11.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(108, 110, 88));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Devolucion");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel10)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
-                .addGap(44, 44, 44))
-        );
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 80, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -333,17 +431,17 @@ public class Bodega extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MousePressed
 
-    private void nomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomActionPerformed
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomActionPerformed
+    }//GEN-LAST:event_nombreActionPerformed
 
     private void pvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pvActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pvActionPerformed
 
-    private void cantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantActionPerformed
+    private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cantActionPerformed
+    }//GEN-LAST:event_cantidadActionPerformed
 
     private void pcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcActionPerformed
         // TODO add your handling code here:
@@ -351,16 +449,119 @@ public class Bodega extends javax.swing.JFrame {
 
     private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
         String codigo = generarCod();
-        String nombre = nom.getText();
-        String cantidad = cant.getText();
+        String nombrev = nombre.getText();
+        String cantidadv = cantidad.getText();
         String precc = pc.getText();
         String precv = pv.getText();
-        String info[] = {nombre, cantidad, codigo, precc, precv};
+        String info[] = {nombrev, cantidadv, codigo, precc, precv};
         modelo.addRow(info);
     }//GEN-LAST:event_addMousePressed
 
-    
-    
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
+        // TODO add your handling code here:
+        String ruta = "archivo_productos.txt";
+        int N = 1;
+        File archivo_productos = new File(ruta);
+        if (archivo_productos.exists()) {
+            Actualizar();
+            N = 2;
+        }
+        Registrar(N);
+        Actualizar();
+    }//GEN-LAST:event_jLabel9MousePressed
+    public void Crear_Producto(int N) {
+
+        String ruta = "archivo_productos.txt";
+        File archivo_productos = new File(ruta);
+        BufferedWriter BFW;
+        if (archivo_productos.exists()) {
+            try {
+                BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
+            } catch (IOException ex) {
+                Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
+            } catch (IOException ex) {
+                Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        FileWriter archivo = null;
+        PrintWriter PW = null;
+        try {
+            archivo = new FileWriter("archivo_productos.txt", true);
+            PW = new PrintWriter(archivo);
+            int R = (int) (Math.random() * 1000) + 1;
+
+            Nodo_Productos p = ptr;
+            while (p != null && N == 2) {
+                if (p.getRamdom() == R) {
+                    R = (int) (Math.random() * 1000) + 1;
+                    p = ptr;
+                } else {
+                    p = p.getRlink();
+                }
+            }
+            PW.println(nombre.getText() + ";" + cantidad.getText() + ";" + pc.getText() + ";" + pv.getText() + ";" + R + ";");
+            nombre.setText("");
+            cantidad.setText("");
+            pv.setText("");
+            pc.setText("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != archivo) {
+                    archivo.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+    }
+
+    public void Registrar(int N) {
+
+        if (Pattern.compile("[A-Za-z ]*").matcher(nombre.getText()).matches() && !nombre.getText().equals("") && !Pattern.compile("[ \\t\\n\\x0b\\r\\f]*").matcher(nombre.getText()).matches()) {
+            try {
+                int cant = Integer.parseInt(cantidad.getText());
+                if (cant > 0) {
+                    try {
+                        float prec = Float.parseFloat(pc.getText());
+                        if (prec >= 0) {
+                            try {
+                                float prev = Float.parseFloat(pv.getText());
+                                if (prev >= 0) {
+                                    Crear_Producto(N);
+                                }
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de venta valido", "Atencion", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de compra valido", "Atencion", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese una cantidad valida", "Atencion", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "NOMBRE NO VALIDO", "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }
+
     public String generarCod() {
         int cod;
         cod = (int) (Math.random() * 99999) + 10000;
@@ -393,6 +594,7 @@ public class Bodega extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Bodega.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -405,10 +607,8 @@ public class Bodega extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
     private javax.swing.JPanel add;
-    private javax.swing.JTextField cant;
+    private javax.swing.JTextField cantidad;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -419,9 +619,8 @@ public class Bodega extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField nom;
+    private javax.swing.JTextField nombre;
     private javax.swing.JTextField pc;
     private javax.swing.JTextField pv;
     private javax.swing.JTable tabla_bodega;

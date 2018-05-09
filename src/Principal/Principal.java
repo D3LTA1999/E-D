@@ -331,8 +331,7 @@ public class Principal extends javax.swing.JFrame {
         while (p != null) {
             if (pass_login.getText().equals(p.getPass()) && user_login.getText().toUpperCase().equals(p.getUser())) {
                 if (p.getTipo().equals("Bodega")) {
-                    Bodega Bo = new Bodega();
-                    Bo.setVisible(true);
+                    Bodega bo = new Bodega();
                     this.dispose();
                 } else {
                     if (p.getTipo().equals("Ventas")) {
