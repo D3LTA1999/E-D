@@ -446,6 +446,7 @@ public class Principal extends javax.swing.JFrame {
                             }
                             punt++;
                             cont = i + 1;
+                            //ff
                         }
                     }
                     if (ptrU == null) {
