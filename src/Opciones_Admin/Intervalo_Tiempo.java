@@ -35,10 +35,13 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
         exit = new javax.swing.JLabel();
         bimestral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         trimestral = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         semestral = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -99,77 +102,121 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 120));
 
+        bimestral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bimestralKeyPressed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 110, 88));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("BIMESTRAL");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Calendar_2_40px_1.png"))); // NOI18N
 
         javax.swing.GroupLayout bimestralLayout = new javax.swing.GroupLayout(bimestral);
         bimestral.setLayout(bimestralLayout);
         bimestralLayout.setHorizontalGroup(
             bimestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bimestralLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(bimestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bimestralLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel5))
+                    .addGroup(bimestralLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         bimestralLayout.setVerticalGroup(
             bimestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bimestralLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
 
-        jPanel1.add(bimestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+        jPanel1.add(bimestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+
+        trimestral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                trimestralKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(108, 110, 88));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("TRIMESTRAL");
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Calendar_3_40px_1.png"))); // NOI18N
+
         javax.swing.GroupLayout trimestralLayout = new javax.swing.GroupLayout(trimestral);
         trimestral.setLayout(trimestralLayout);
         trimestralLayout.setHorizontalGroup(
             trimestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trimestralLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18))
+            .addGroup(trimestralLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         trimestralLayout.setVerticalGroup(
             trimestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trimestralLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
 
-        jPanel1.add(trimestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, -1, -1));
+        jPanel1.add(trimestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
+
+        semestral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                semestralKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(108, 110, 88));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("SEMESTRAL");
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Calendar_6_40px_1.png"))); // NOI18N
+
         javax.swing.GroupLayout semestralLayout = new javax.swing.GroupLayout(semestral);
         semestral.setLayout(semestralLayout);
         semestralLayout.setHorizontalGroup(
             semestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(semestralLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel3)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(semestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(semestralLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel4))
+                    .addGroup(semestralLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel3)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         semestralLayout.setVerticalGroup(
             semestralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, semestralLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
 
-        jPanel1.add(semestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, -1, -1));
+        jPanel1.add(semestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +227,7 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -190,6 +237,20 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
+
+    private void bimestralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bimestralKeyPressed
+
+        
+
+    }//GEN-LAST:event_bimestralKeyPressed
+
+    private void trimestralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trimestralKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_trimestralKeyPressed
+
+    private void semestralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_semestralKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_semestralKeyPressed
 
     /**
      * @param args the command line arguments
@@ -234,6 +295,9 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel semestral;

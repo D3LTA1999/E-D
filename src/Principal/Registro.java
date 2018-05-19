@@ -349,7 +349,7 @@ public class Registro extends javax.swing.JFrame {
         us.setUser(crearUser(us.getNombres(), us.getApellidos()));
         us.setPass(crearPass());
         if (!leer_tpuser().equals("")) {
-            us.llenado(us.getNombres(), us.getApellidos(), us.getCedula(), crearPass(), us.getTipo(), crearUser(us.getNombres(), us.getApellidos()));
+            us.llenado(us.getNombres(), us.getApellidos(), us.getCedula(), us.getPass(), us.getTipo(), crearUser(us.getNombres(), us.getApellidos()));
         }
 
     }

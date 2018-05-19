@@ -33,6 +33,10 @@ public class Bodega extends javax.swing.JFrame {
     public Bodega() {
         initComponents();
         this.setLocationRelativeTo(null);
+        resetColor(add);
+        resetColor(add);
+        resetColor(devolucion);
+        resetColor(devolucion);
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Trolley_96px.png")).getImage());
         modelo = new DefaultTableModel(datos, columnas);
         tabla_bodega.setModel(modelo);
@@ -197,6 +201,9 @@ public class Bodega extends javax.swing.JFrame {
         add = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        devolucion = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 110, 88));
@@ -395,6 +402,36 @@ public class Bodega extends javax.swing.JFrame {
         );
 
         jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 80, 70));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Sell_30px_1.png"))); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel11.setText("Devolucion");
+
+        javax.swing.GroupLayout devolucionLayout = new javax.swing.GroupLayout(devolucion);
+        devolucion.setLayout(devolucionLayout);
+        devolucionLayout.setHorizontalGroup(
+            devolucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(devolucionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, devolucionLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(32, 32, 32))
+        );
+        devolucionLayout.setVerticalGroup(
+            devolucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(devolucionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel11))
+        );
+
+        jPanel1.add(devolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 80, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -608,7 +645,10 @@ public class Bodega extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
     private javax.swing.JPanel add;
     private javax.swing.JTextField cantidad;
+    private javax.swing.JPanel devolucion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
