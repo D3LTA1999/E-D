@@ -219,9 +219,6 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 30, 30));
 
         ingresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ingresarMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ingresarMouseEntered(evt);
             }
@@ -326,32 +323,6 @@ public class Principal extends javax.swing.JFrame {
         rg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_registrarMouseClicked
-
-    private void ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseClicked
-        boolean sw = true;
-        Nodo_Usuario p = ptrU;
-        while (p != null && sw == true) {
-            if (pass_login.getText().equals(p.getPass()) && user_login.getText().toUpperCase().equals(p.getUser())) {
-                sw = false;
-            } else {
-                p = p.getLink();
-            }
-        }
-        if (p.getTipo().equals("Bodega") && sw == false) {
-            Bodega bo = new Bodega();
-            bo.setVisible(true);
-            this.dispose();
-        } else if (p.getTipo().equals("Ventas") && sw == false) {
-            Venta ve = new Venta();
-            ve.setVisible(true);
-            this.dispose();
-        } else if (sw == true) {
-            JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrecto", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-
-        System.out.println(p.getPass() + p.getUser());
-
-    }//GEN-LAST:event_ingresarMouseClicked
 
     /**
      * @param args the command line arguments

@@ -19,10 +19,10 @@ public class Venta extends javax.swing.JFrame {
      */
     public Venta() {
         initComponents();
-        resetColor(reembp);
-        resetColor(venderp);
+        resetColor(reembolso);
+        resetColor(buy);
         this.setLocationRelativeTo(null);
-//        this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Coins_96px_1.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Money_Box_80px.png")).getImage());
 
     }
 
@@ -46,12 +46,12 @@ public class Venta extends javax.swing.JFrame {
         nombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         cantidad = new javax.swing.JTextField();
-        venderp = new javax.swing.JPanel();
+        buy = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        buy = new javax.swing.JLabel();
-        reembp = new javax.swing.JPanel();
+        label = new javax.swing.JLabel();
+        reembolso = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        refund = new javax.swing.JLabel();
+        jlabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -173,14 +173,14 @@ public class Venta extends javax.swing.JFrame {
         });
         jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 60, 30));
 
-        venderp.setBackground(new java.awt.Color(233, 247, 247));
-        venderp.setForeground(new java.awt.Color(164, 207, 190));
-        venderp.addMouseListener(new java.awt.event.MouseAdapter() {
+        buy.setBackground(new java.awt.Color(233, 247, 247));
+        buy.setForeground(new java.awt.Color(164, 207, 190));
+        buy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                venderpMouseEntered(evt);
+                buyMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                venderpMouseExited(evt);
+                buyMouseExited(evt);
             }
         });
 
@@ -188,48 +188,40 @@ public class Venta extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(108, 110, 88));
         jLabel4.setText("Vender");
 
-        buy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_POS_Terminal_30px_1.png"))); // NOI18N
-        buy.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buyMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                buyMousePressed(evt);
-            }
-        });
+        label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_POS_Terminal_30px_1.png"))); // NOI18N
 
-        javax.swing.GroupLayout venderpLayout = new javax.swing.GroupLayout(venderp);
-        venderp.setLayout(venderpLayout);
-        venderpLayout.setHorizontalGroup(
-            venderpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(venderpLayout.createSequentialGroup()
+        javax.swing.GroupLayout buyLayout = new javax.swing.GroupLayout(buy);
+        buy.setLayout(buyLayout);
+        buyLayout.setHorizontalGroup(
+            buyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buyLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, venderpLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buyLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buy)
+                .addComponent(label)
                 .addGap(26, 26, 26))
         );
-        venderpLayout.setVerticalGroup(
-            venderpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, venderpLayout.createSequentialGroup()
+        buyLayout.setVerticalGroup(
+            buyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buy, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4))
         );
 
-        jPanel1.add(venderp, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 80, 70));
+        jPanel1.add(buy, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 80, 70));
 
-        reembp.setBackground(new java.awt.Color(233, 247, 247));
-        reembp.setForeground(new java.awt.Color(164, 207, 190));
-        reembp.addMouseListener(new java.awt.event.MouseAdapter() {
+        reembolso.setBackground(new java.awt.Color(233, 247, 247));
+        reembolso.setForeground(new java.awt.Color(164, 207, 190));
+        reembolso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                reembpMouseEntered(evt);
+                reembolsoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                reembpMouseExited(evt);
+                reembolsoMouseExited(evt);
             }
         });
 
@@ -237,39 +229,31 @@ public class Venta extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(108, 110, 88));
         jLabel5.setText("Reembolso");
 
-        refund.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Refund_30px.png"))); // NOI18N
-        refund.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refundMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                refundMousePressed(evt);
-            }
-        });
+        jlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Refund_30px.png"))); // NOI18N
 
-        javax.swing.GroupLayout reembpLayout = new javax.swing.GroupLayout(reembp);
-        reembp.setLayout(reembpLayout);
-        reembpLayout.setHorizontalGroup(
-            reembpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reembpLayout.createSequentialGroup()
+        javax.swing.GroupLayout reembolsoLayout = new javax.swing.GroupLayout(reembolso);
+        reembolso.setLayout(reembolsoLayout);
+        reembolsoLayout.setHorizontalGroup(
+            reembolsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reembolsoLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reembpLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reembolsoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(refund)
-                .addGap(26, 26, 26))
+                .addComponent(jlabel)
+                .addGap(29, 29, 29))
         );
-        reembpLayout.setVerticalGroup(
-            reembpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reembpLayout.createSequentialGroup()
+        reembolsoLayout.setVerticalGroup(
+            reembolsoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reembolsoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(refund, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(jlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5))
         );
 
-        jPanel1.add(reembp, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 80, 70));
+        jPanel1.add(reembolso, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 80, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,24 +288,6 @@ public class Venta extends javax.swing.JFrame {
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadActionPerformed
-
-    private void buyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_buyMouseClicked
-
-    private void buyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMousePressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_buyMousePressed
-
-    private void refundMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refundMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_refundMouseClicked
-
-    private void refundMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refundMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_refundMousePressed
     int xx, xy;
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
         int x = evt.getXOnScreen();
@@ -336,24 +302,24 @@ public class Venta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MousePressed
 
-    private void venderpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_venderpMouseEntered
-        setColor(venderp);
+    private void buyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseEntered
+        setColor(buy);
 // TODO add your handling code here:
-    }//GEN-LAST:event_venderpMouseEntered
+    }//GEN-LAST:event_buyMouseEntered
 
-    private void venderpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_venderpMouseExited
-        resetColor(venderp);
-    }//GEN-LAST:event_venderpMouseExited
+    private void buyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseExited
+        resetColor(buy);
+    }//GEN-LAST:event_buyMouseExited
 
-    private void reembpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembpMouseEntered
-        setColor(reembp);
+    private void reembolsoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembolsoMouseEntered
+        setColor(reembolso);
 // TODO add your handling code here:
-    }//GEN-LAST:event_reembpMouseEntered
+    }//GEN-LAST:event_reembolsoMouseEntered
 
-    private void reembpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembpMouseExited
-        resetColor(reembp);
+    private void reembolsoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembolsoMouseExited
+        resetColor(reembolso);
 // TODO add your handling code here:
-    }//GEN-LAST:event_reembpMouseExited
+    }//GEN-LAST:event_reembolsoMouseExited
 
     /**
      * @param args the command line arguments
@@ -392,7 +358,7 @@ public class Venta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
-    private javax.swing.JLabel buy;
+    private javax.swing.JPanel buy;
     private javax.swing.JTextField cantidad;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -404,9 +370,9 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jlabel;
+    private javax.swing.JLabel label;
     private javax.swing.JTextField nombre;
-    private javax.swing.JPanel reembp;
-    private javax.swing.JLabel refund;
-    private javax.swing.JPanel venderp;
+    private javax.swing.JPanel reembolso;
     // End of variables declaration//GEN-END:variables
 }
