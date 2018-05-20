@@ -20,11 +20,11 @@ import javax.swing.table.DefaultTableModel;
  * @author daalb
  */
 public class Bodega extends javax.swing.JFrame {
-    
+
     DefaultTableModel modelo;
     String datos[][] = {};
     String columnas[] = {"Nombre", "Cantidad", "Código", "Precio de compra", "Precio de venta"};
-    
+
     public Bodega() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -34,16 +34,18 @@ public class Bodega extends javax.swing.JFrame {
         resetColor(devolucion);
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Trolley_96px.png")).getImage());
         modelo = new DefaultTableModel(datos, columnas);
-        tabla_bodega.setModel(modelo);
-        
+        Actualizar();
+        Tabla();
+
     }
 
     //Metodos para el diseño
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(197, 197, 197));
     }
+
     Nodo_Productos ptr = null, ult = null;
-    
+
     public void Actualizar() {
         Nodo_Productos p = ptr;
         String ruta = "archivo_productos.txt";
@@ -80,7 +82,7 @@ public class Bodega extends javax.swing.JFrame {
                             if (punt == 4) {
                                 Random = linea.substring(cont, i);
                             }
-                            
+
                             punt++;
                             cont = i + 1;
                         }
@@ -97,9 +99,9 @@ public class Bodega extends javax.swing.JFrame {
                     }
                     p.setRlink(null);
                     ult = p;
-                    
+
                 }
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -111,13 +113,13 @@ public class Bodega extends javax.swing.JFrame {
                     e2.printStackTrace();
                 }
             }
-            
+
         } else {
             System.out.println("No hay archivo");
         }
-        
+         Tabla();
     }
-    
+
     public void Actualizar_Archivo() {
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
@@ -135,7 +137,7 @@ public class Bodega extends javax.swing.JFrame {
                 Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         FileWriter archivo = null;
         PrintWriter PW = null;
         int cont = 0;
@@ -162,7 +164,7 @@ public class Bodega extends javax.swing.JFrame {
         }
         Actualizar();
     }
-    
+
     public void resetColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(240, 240, 240));
     }
@@ -512,13 +514,7 @@ public class Bodega extends javax.swing.JFrame {
     }//GEN-LAST:event_devolucionMouseEntered
 
     private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
-        String codigo = generarCod();
-        String nombrev = nombre.getText();
-        String cantidadv = cantidad.getText();
-        String precc = pc.getText();
-        String precv = pv.getText();
-        String info[] = {nombrev, cantidadv, codigo, precc, precv};
-        modelo.addRow(info);
+
         String ruta = "archivo_productos.txt";
         int N = 1;
         File archivo_productos = new File(ruta);
@@ -535,7 +531,7 @@ public class Bodega extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_devolucionMousePressed
     public void Crear_Producto(int N) {
-        
+
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
         BufferedWriter BFW;
@@ -558,7 +554,7 @@ public class Bodega extends javax.swing.JFrame {
             archivo = new FileWriter("archivo_productos.txt", true);
             PW = new PrintWriter(archivo);
             int R = (int) (Math.random() * 1000) + 1;
-            
+
             Nodo_Productos p = ptr;
             while (p != null && N == 2) {
                 if (p.getRamdom() == R) {
@@ -584,11 +580,28 @@ public class Bodega extends javax.swing.JFrame {
                 e2.printStackTrace();
             }
         }
-        
+       
     }
-    
+
+    public void Tabla() {
+        modelo = new DefaultTableModel(datos, columnas);
+        Nodo_Productos t = ptr;
+        if (ptr == null) {
+            JOptionPane.showMessageDialog(null, "Lista vacía");
+        } else {
+            while (t != null) {
+                //mostrar.setText(t.info+" ");
+                modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
+                t = t.getRlink();
+            }
+        }
+        tabla_bodega.setModel(modelo);
+        System.out.println(modelo.getRowCount());
+
+    }
+
     public void Registrar(int N) {
-        
+
         if (Pattern.compile("[A-Za-z ]*").matcher(nombre.getText()).matches() && !nombre.getText().equals("") && !Pattern.compile("[ \\t\\n\\x0b\\r\\f]*").matcher(nombre.getText()).matches()) {
             try {
                 int cant = Integer.parseInt(cantidad.getText());
@@ -599,7 +612,16 @@ public class Bodega extends javax.swing.JFrame {
                             try {
                                 float prev = Float.parseFloat(pv.getText());
                                 if (prev >= 0) {
+//                                    String codigo = generarCod();
+//                                    String nombrev = nombre.getText();
+//                                    String cantidadv = cantidad.getText();
+//                                    String precc = pc.getText();
+//                                    String precv = pv.getText();
+//                                    String info[] = {nombrev, cantidadv, codigo, precc, precv};
+//                                    modelo.addRow(info);
                                     Crear_Producto(N);
+                            
+
                                 }
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de venta valido", "Atencion", JOptionPane.ERROR_MESSAGE);
@@ -609,18 +631,18 @@ public class Bodega extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de compra valido", "Atencion", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese una cantidad valida", "Atencion", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "NOMBRE NO VALIDO", "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
-            
+
         }
-        
+
     }
-    
+
     public String generarCod() {
         int cod;
         cod = (int) (Math.random() * 99999) + 10000;
