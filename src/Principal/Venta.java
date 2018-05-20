@@ -1,6 +1,8 @@
 package Principal;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -128,6 +130,7 @@ public class Venta extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 130));
 
+        tabla_ventas.setBackground(new java.awt.Color(233, 247, 247));
         tabla_ventas.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         tabla_ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -231,6 +234,9 @@ public class Venta extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 reembolsoMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                reembolsoMousePressed(evt);
+            }
         });
 
         jLabel5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
@@ -279,7 +285,6 @@ public class Venta extends javax.swing.JFrame {
 
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(197, 197, 197));
-        
     }
 
     public void resetColor(JPanel panel) {
@@ -329,6 +334,88 @@ public class Venta extends javax.swing.JFrame {
         resetColor(reembolso);
 // TODO add your handling code here:
     }//GEN-LAST:event_reembolsoMouseExited
+
+    private void reembolsoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembolsoMousePressed
+        String nombre;
+        System.out.println();
+        System.out.println();
+
+        Nodo_Productos p = ptr;
+        Nodo_Productos u = ult;
+        if (tabla_ventas.getSelectedRow() != -1) {
+            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+                p = p.getRlink();
+            }
+            String can = JOptionPane.showInputDialog("Ingrese la cantidad de productos devueltos");
+
+            try {
+                int N = Integer.parseInt(can);
+                System.out.println("No se puede quitar esa cantidad");
+                p.setCantidad(p.getCantidad() + N);
+                Actualizar_Archivo();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "FEO");
+            }
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reembolsoMousePressed
+
+    public void eliminarArchivo() {
+        File fichero = new File("Archivo_productos.txt");
+        if (fichero.delete()) {
+            System.out.println("El fichero ha sido borrado satisfactoriamente");
+        } else {
+            System.out.println("El fichero no pudó ser borrado");
+        }
+    }
+
+    public void Actualizar_Archivo() {
+        eliminarArchivo();
+        String ruta = "archivo_productos.txt";
+        File archivo_productos = new File(ruta);
+        BufferedWriter BFW = null;
+        if (archivo_productos.exists()) {
+            try {
+                BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
+            } catch (IOException ex) {
+                Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
+            } catch (IOException ex) {
+                Logger.getLogger(Bodega.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        FileWriter archivo = null;
+        PrintWriter PW = null;
+        int cont = 0;
+        try {
+            archivo = new FileWriter("archivo_productos.txt", true);
+            PW = new PrintWriter(archivo);
+            Nodo_Productos p = ptr;
+            while (p != null) {
+                PW.println(p.getNombre() + ";" + p.getCantidad() + ";" + p.getPrecioCompra() + ";" + p.getPrecioVenta() + ";" + p.getRamdom() + ";");
+                p = p.getRlink();
+                System.out.println(cont++);
+            }
+            BFW.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != archivo) {
+                    archivo.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        Actualizar();
+    }
 
     public void Actualizar() {
         Nodo_Productos p = ptr;

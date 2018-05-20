@@ -116,7 +116,7 @@ public class Bodega extends javax.swing.JFrame {
     }
 
     public void Actualizar_Archivo() {
-        clearConsole();
+       eliminarArchivo();
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
         BufferedWriter BFW = null;
@@ -573,7 +573,7 @@ public class Bodega extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_devolucionMousePressed
-    public void clearConsole() {
+    public void eliminarArchivo() {
         File fichero = new File("Archivo_productos.txt");
         if (fichero.delete()) {
             System.out.println("El fichero ha sido borrado satisfactoriamente");
