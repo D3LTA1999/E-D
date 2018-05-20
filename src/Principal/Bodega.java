@@ -1,11 +1,5 @@
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+package Principal;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -33,8 +27,8 @@ public class Bodega extends javax.swing.JFrame {
     public Bodega() {
         initComponents();
         this.setLocationRelativeTo(null);
-        resetColor(add);
-        resetColor(add);
+        resetColor(panel);
+        resetColor(panel);
         resetColor(devolucion);
         resetColor(devolucion);
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Trolley_96px.png")).getImage());
@@ -198,9 +192,9 @@ public class Bodega extends javax.swing.JFrame {
         pc = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_bodega = new javax.swing.JTable();
-        add = new javax.swing.JPanel();
+        panel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        add = new javax.swing.JLabel();
         devolucion = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -344,7 +338,7 @@ public class Bodega extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -357,51 +351,46 @@ public class Bodega extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 720, 260));
 
-        add.setBackground(new java.awt.Color(233, 247, 247));
-        add.setForeground(new java.awt.Color(164, 207, 190));
-        add.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                addMousePressed(evt);
-            }
-        });
+        panel.setBackground(new java.awt.Color(233, 247, 247));
+        panel.setForeground(new java.awt.Color(164, 207, 190));
 
         jLabel4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(108, 110, 88));
         jLabel4.setText("Agregar");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Add_30px.png"))); // NOI18N
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Add_30px.png"))); // NOI18N
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                addMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel9MousePressed(evt);
+                addMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout addLayout = new javax.swing.GroupLayout(add);
-        add.setLayout(addLayout);
-        addLayout.setHorizontalGroup(
-            addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addContainerGap(16, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
+                .addComponent(add)
                 .addGap(26, 26, 26))
         );
-        addLayout.setVerticalGroup(
-            addLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addLayout.createSequentialGroup()
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4))
         );
 
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 80, 70));
+        jPanel1.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 80, 70));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Sell_30px_1.png"))); // NOI18N
 
@@ -484,7 +473,14 @@ public class Bodega extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pcActionPerformed
 
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_addMouseClicked
+
     private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
+        // TODO add your handling code here:
         String codigo = generarCod();
         String nombrev = nombre.getText();
         String cantidadv = cantidad.getText();
@@ -492,16 +488,6 @@ public class Bodega extends javax.swing.JFrame {
         String precv = pv.getText();
         String info[] = {nombrev, cantidadv, codigo, precc, precv};
         modelo.addRow(info);
-    }//GEN-LAST:event_addMousePressed
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_jLabel9MouseClicked
-
-    private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
-        // TODO add your handling code here:
         String ruta = "archivo_productos.txt";
         int N = 1;
         File archivo_productos = new File(ruta);
@@ -511,7 +497,7 @@ public class Bodega extends javax.swing.JFrame {
         }
         Registrar(N);
         Actualizar();
-    }//GEN-LAST:event_jLabel9MousePressed
+    }//GEN-LAST:event_addMousePressed
     public void Crear_Producto(int N) {
 
         String ruta = "archivo_productos.txt";
@@ -643,7 +629,7 @@ public class Bodega extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
-    private javax.swing.JPanel add;
+    private javax.swing.JLabel add;
     private javax.swing.JTextField cantidad;
     private javax.swing.JPanel devolucion;
     private javax.swing.JLabel jLabel1;
@@ -656,11 +642,11 @@ public class Bodega extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombre;
+    private javax.swing.JPanel panel;
     private javax.swing.JTextField pc;
     private javax.swing.JTextField pv;
     private javax.swing.JTable tabla_bodega;

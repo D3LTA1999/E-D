@@ -1,9 +1,13 @@
+package Principal;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author daalb
@@ -15,6 +19,11 @@ public class Venta extends javax.swing.JFrame {
      */
     public Venta() {
         initComponents();
+        resetColor(reembp);
+        resetColor(venderp);
+        this.setLocationRelativeTo(null);
+//        this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Coins_96px_1.png")).getImage());
+
     }
 
     /**
@@ -30,16 +39,38 @@ public class Venta extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        nombre = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cantidad = new javax.swing.JTextField();
+        venderp = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        buy = new javax.swing.JLabel();
+        reembp = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        refund = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(233, 247, 247));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(164, 207, 190));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Money_Box_80px.png"))); // NOI18N
 
@@ -47,31 +78,198 @@ public class Venta extends javax.swing.JFrame {
         Titulo.setForeground(new java.awt.Color(108, 110, 88));
         Titulo.setText("Ventas");
 
+        jLabel3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel3.setText("X");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(181, 181, 181)
+                .addGap(251, 251, 251)
                 .addComponent(jLabel2)
-                .addGap(43, 43, 43)
-                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(259, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(41, 41, 41)
                         .addComponent(Titulo))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel2)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel3))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 130));
+
+        jTable1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Cantidad", "Codigo", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 790, 230));
+
+        jLabel6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Nombre del producto");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 150, 30));
+
+        nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 190, 30));
+
+        jLabel7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Cantidad");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 110, 30));
+
+        cantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 60, 30));
+
+        venderp.setBackground(new java.awt.Color(233, 247, 247));
+        venderp.setForeground(new java.awt.Color(164, 207, 190));
+        venderp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                venderpMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                venderpMouseExited(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel4.setText("Vender");
+
+        buy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_POS_Terminal_30px_1.png"))); // NOI18N
+        buy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buyMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buyMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout venderpLayout = new javax.swing.GroupLayout(venderp);
+        venderp.setLayout(venderpLayout);
+        venderpLayout.setHorizontalGroup(
+            venderpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(venderpLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, venderpLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buy)
+                .addGap(26, 26, 26))
+        );
+        venderpLayout.setVerticalGroup(
+            venderpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, venderpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(buy, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4))
+        );
+
+        jPanel1.add(venderp, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 80, 70));
+
+        reembp.setBackground(new java.awt.Color(233, 247, 247));
+        reembp.setForeground(new java.awt.Color(164, 207, 190));
+        reembp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                reembpMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                reembpMouseExited(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel5.setText("Reembolso");
+
+        refund.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Refund_30px.png"))); // NOI18N
+        refund.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refundMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                refundMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout reembpLayout = new javax.swing.GroupLayout(reembp);
+        reembp.setLayout(reembpLayout);
+        reembpLayout.setHorizontalGroup(
+            reembpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reembpLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reembpLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refund)
+                .addGap(26, 26, 26))
+        );
+        reembpLayout.setVerticalGroup(
+            reembpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reembpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(refund, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5))
+        );
+
+        jPanel1.add(reembp, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 80, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,11 +279,81 @@ public class Venta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void setColor(JPanel panel) {
+        panel.setBackground(new java.awt.Color(197, 197, 197));
+    }
+
+    public void resetColor(JPanel panel) {
+        panel.setBackground(new java.awt.Color(240, 240, 240));
+    }
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreActionPerformed
+
+    private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadActionPerformed
+
+    private void buyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_buyMouseClicked
+
+    private void buyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_buyMousePressed
+
+    private void refundMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refundMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refundMouseClicked
+
+    private void refundMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refundMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refundMousePressed
+    int xx, xy;
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        xx = evt.getX();
+        xy = evt.getY();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void venderpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_venderpMouseEntered
+        setColor(venderp);
+// TODO add your handling code here:
+    }//GEN-LAST:event_venderpMouseEntered
+
+    private void venderpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_venderpMouseExited
+        resetColor(venderp);
+    }//GEN-LAST:event_venderpMouseExited
+
+    private void reembpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembpMouseEntered
+        setColor(reembp);
+// TODO add your handling code here:
+    }//GEN-LAST:event_reembpMouseEntered
+
+    private void reembpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reembpMouseExited
+        resetColor(reembp);
+// TODO add your handling code here:
+    }//GEN-LAST:event_reembpMouseExited
 
     /**
      * @param args the command line arguments
@@ -124,8 +392,21 @@ public class Venta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel buy;
+    private javax.swing.JTextField cantidad;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JPanel reembp;
+    private javax.swing.JLabel refund;
+    private javax.swing.JPanel venderp;
     // End of variables declaration//GEN-END:variables
 }

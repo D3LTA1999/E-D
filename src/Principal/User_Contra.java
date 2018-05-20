@@ -1,4 +1,4 @@
-
+package Principal;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
