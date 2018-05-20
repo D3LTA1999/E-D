@@ -225,6 +225,9 @@ public class Principal extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 ingresarMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ingresarMousePressed(evt);
+            }
         });
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
@@ -345,6 +348,10 @@ public class Principal extends javax.swing.JFrame {
         rg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_registrarMouseClicked
+
+    private void ingresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ingresarMousePressed
 
     /**
      * @param args the command line arguments
