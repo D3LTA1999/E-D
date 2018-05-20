@@ -1,4 +1,5 @@
 package Principal;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +59,7 @@ public class Registro extends javax.swing.JFrame {
         registrar = new javax.swing.JPanel();
         regis = new javax.swing.JLabel();
         ape = new javax.swing.JTextField();
+        atajo = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -307,6 +309,15 @@ public class Registro extends javax.swing.JFrame {
         });
         jPanel1.add(ape, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 190, 30));
 
+        atajo.setBackground(new java.awt.Color(233, 247, 247));
+        atajo.setMnemonic('X');
+        atajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atajoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(atajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 80, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -488,6 +499,13 @@ public class Registro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_apeActionPerformed
 
+    private void atajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atajoActionPerformed
+        Registro_Admin ra = new Registro_Admin();
+        ra.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_atajoActionPerformed
+
     int xx, xy;
 
     /**
@@ -528,6 +546,7 @@ public class Registro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
     private javax.swing.JTextField ape;
+    private javax.swing.JButton atajo;
     private javax.swing.JPanel back;
     private javax.swing.JTextField ced;
     private javax.swing.JComboBox<String> dpto;

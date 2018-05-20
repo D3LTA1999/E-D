@@ -3,3 +3,4 @@ EMOREN;2413;Bodega;234567890;Eyleen Paola;Moreno Guitierrez;
 DALBOR;8669;Bodega;123490887;Diego Antonio;Albor Rojas;
 NALBOR;6301;Bodega;142565342;Natalia Sofia;Albor Rojas;
 KLOL;10456;Ventas;12312;Ketty;lol;
+AMORE;8483;Bodega;12313;Alguien;More;

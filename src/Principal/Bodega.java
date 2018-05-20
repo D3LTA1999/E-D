@@ -1,5 +1,6 @@
 package Principal;
 
+import Opciones_Admin.Modo_Valorizacion;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,10 +41,6 @@ public class Bodega extends javax.swing.JFrame {
     }
 
     //Metodos para el diseño
-    public void setColor(JPanel panel) {
-        panel.setBackground(new java.awt.Color(197, 197, 197));
-    }
-
     Nodo_Productos ptr = null, ult = null;
 
     public void Actualizar() {
@@ -117,7 +114,7 @@ public class Bodega extends javax.swing.JFrame {
         } else {
             System.out.println("No hay archivo");
         }
-         Tabla();
+        Tabla();
     }
 
     public void Actualizar_Archivo() {
@@ -167,6 +164,10 @@ public class Bodega extends javax.swing.JFrame {
 
     public void resetColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(240, 240, 240));
+    }
+
+    public void setColor(JPanel panel) {
+        panel.setBackground(new java.awt.Color(197, 197, 197));
     }
     //Fin metodos de diseño
 
@@ -514,7 +515,6 @@ public class Bodega extends javax.swing.JFrame {
     }//GEN-LAST:event_devolucionMouseEntered
 
     private void addMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMousePressed
-
         String ruta = "archivo_productos.txt";
         int N = 1;
         File archivo_productos = new File(ruta);
@@ -531,7 +531,13 @@ public class Bodega extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_devolucionMousePressed
     public void Crear_Producto(int N) {
-
+        Modo_Valorizacion mv=new Modo_Valorizacion();
+        if(mv.modo==true){
+            System.out.println("Pila");
+        }else{
+            System.out.println("Cola");
+        }
+        
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
         BufferedWriter BFW;
@@ -554,7 +560,6 @@ public class Bodega extends javax.swing.JFrame {
             archivo = new FileWriter("archivo_productos.txt", true);
             PW = new PrintWriter(archivo);
             int R = (int) (Math.random() * 1000) + 1;
-
             Nodo_Productos p = ptr;
             while (p != null && N == 2) {
                 if (p.getRamdom() == R) {
@@ -580,7 +585,7 @@ public class Bodega extends javax.swing.JFrame {
                 e2.printStackTrace();
             }
         }
-       
+
     }
 
     public void Tabla() {
@@ -590,7 +595,6 @@ public class Bodega extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Lista vacía");
         } else {
             while (t != null) {
-                //mostrar.setText(t.info+" ");
                 modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
                 t = t.getRlink();
             }
@@ -601,7 +605,6 @@ public class Bodega extends javax.swing.JFrame {
     }
 
     public void Registrar(int N) {
-
         if (Pattern.compile("[A-Za-z ]*").matcher(nombre.getText()).matches() && !nombre.getText().equals("") && !Pattern.compile("[ \\t\\n\\x0b\\r\\f]*").matcher(nombre.getText()).matches()) {
             try {
                 int cant = Integer.parseInt(cantidad.getText());
@@ -612,16 +615,7 @@ public class Bodega extends javax.swing.JFrame {
                             try {
                                 float prev = Float.parseFloat(pv.getText());
                                 if (prev >= 0) {
-//                                    String codigo = generarCod();
-//                                    String nombrev = nombre.getText();
-//                                    String cantidadv = cantidad.getText();
-//                                    String precc = pc.getText();
-//                                    String precv = pv.getText();
-//                                    String info[] = {nombrev, cantidadv, codigo, precc, precv};
-//                                    modelo.addRow(info);
                                     Crear_Producto(N);
-                            
-
                                 }
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de venta valido", "Atencion", JOptionPane.ERROR_MESSAGE);
