@@ -1,7 +1,10 @@
 package Principal;
 
+import java.io.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,15 +17,20 @@ import javax.swing.JPanel;
  */
 public class Venta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Venta
-     */
+    DefaultTableModel modelo;
+    String datos[][] = {};
+    String columnas[] = {"Nombre", "Cantidad", "Código", "Precio"};
+    Nodo_Productos ptr = null, ult = null;
+
     public Venta() {
         initComponents();
         resetColor(reembolso);
         resetColor(buy);
+        modelo = new DefaultTableModel(datos, columnas);
         this.setLocationRelativeTo(null);
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Money_Box_80px.png")).getImage());
+        Actualizar();
+        Tabla();
 
     }
 
@@ -41,7 +49,7 @@ public class Venta extends javax.swing.JFrame {
         Titulo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_ventas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         nombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -120,8 +128,8 @@ public class Venta extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 130));
 
-        jTable1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_ventas.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        tabla_ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -137,12 +145,12 @@ public class Venta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(tabla_ventas);
+        if (tabla_ventas.getColumnModel().getColumnCount() > 0) {
+            tabla_ventas.getColumnModel().getColumn(0).setResizable(false);
+            tabla_ventas.getColumnModel().getColumn(1).setResizable(false);
+            tabla_ventas.getColumnModel().getColumn(2).setResizable(false);
+            tabla_ventas.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 790, 230));
@@ -271,6 +279,7 @@ public class Venta extends javax.swing.JFrame {
 
     public void setColor(JPanel panel) {
         panel.setBackground(new java.awt.Color(197, 197, 197));
+        
     }
 
     public void resetColor(JPanel panel) {
@@ -321,6 +330,96 @@ public class Venta extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_reembolsoMouseExited
 
+    public void Actualizar() {
+        Nodo_Productos p = ptr;
+        String ruta = "archivo_productos.txt";
+        File archivo_productos = new File(ruta);
+        if (archivo_productos.exists()) {
+            ptr = null;
+            ult = null;
+            String Nombre = "", PrecioCompra = "", PrecioVenta = " ", Cantidad = "", Random = "";
+            File archivo;
+            FileReader fr = null;
+            BufferedReader br = null;
+            try {
+                archivo = new File("archivo_productos.txt");
+                fr = new FileReader(archivo);
+                br = new BufferedReader(fr);
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    int punt = 0;
+                    int cont = 0;
+                    for (int i = 0; i < linea.length(); i++) {
+                        if (linea.substring(i, i + 1).equals(";")) {
+                            if (punt == 0) {
+                                Nombre = linea.substring(cont, i);
+                            }
+                            if (punt == 1) {
+                                Cantidad = linea.substring(cont, i);
+                            }
+                            if (punt == 2) {
+                                PrecioCompra = linea.substring(cont, i);
+                            }
+                            if (punt == 3) {
+                                PrecioVenta = linea.substring(cont, i);
+                            }
+                            if (punt == 4) {
+                                Random = linea.substring(cont, i);
+                            }
+
+                            punt++;
+                            cont = i + 1;
+                        }
+                    }
+                    if (ptr == null) {
+                        ptr = new Nodo_Productos(Nombre, Integer.parseInt(Cantidad), Float.parseFloat(PrecioCompra), Float.parseFloat(PrecioVenta), Integer.parseInt(Random), null, null);
+                        ptr.setLlink(null);
+                        p = ptr;
+                    } else {
+                        Nodo_Productos q = new Nodo_Productos(Nombre, Integer.parseInt(Cantidad), Float.parseFloat(PrecioCompra), Float.parseFloat(PrecioVenta), Integer.parseInt(Random), null, null);
+                        p.setRlink(q);
+                        q.setLlink(p);
+                        p = q;
+                    }
+                    p.setRlink(null);
+                    ult = p;
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (null != fr) {
+                        fr.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+
+        } else {
+            System.out.println("No hay archivo");
+        }
+        Tabla();
+    }
+
+    public void Tabla() {
+        modelo = new DefaultTableModel(datos, columnas);
+        Nodo_Productos t = ptr;
+        if (ptr == null) {
+            JOptionPane.showMessageDialog(null, "Lista vacía");
+        } else {
+            while (t != null) {
+                modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
+                t = t.getRlink();
+            }
+        }
+        tabla_ventas.setModel(modelo);
+        System.out.println(modelo.getRowCount());
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -369,10 +468,10 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlabel;
     private javax.swing.JLabel label;
     private javax.swing.JTextField nombre;
     private javax.swing.JPanel reembolso;
+    private javax.swing.JTable tabla_ventas;
     // End of variables declaration//GEN-END:variables
 }

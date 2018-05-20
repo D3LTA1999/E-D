@@ -39,8 +39,6 @@ public class Bodega extends javax.swing.JFrame {
         Tabla();
 
     }
-
-    //Metodos para el diseño
     Nodo_Productos ptr = null, ult = null;
 
     public void Actualizar() {
@@ -596,7 +594,7 @@ public class Bodega extends javax.swing.JFrame {
         } else {
             while (t != null) {
                 modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
-                t = t.getRlink();
+                t = t.getLlink();
             }
         }
         tabla_bodega.setModel(modelo);
