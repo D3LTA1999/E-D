@@ -101,7 +101,7 @@ public class Bodega extends javax.swing.JFrame {
                     ult = p;
 
                 }
-
+                br.close();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -117,10 +117,11 @@ public class Bodega extends javax.swing.JFrame {
         } else {
             System.out.println("No hay archivo");
         }
-         Tabla();
+        Tabla();
     }
 
     public void Actualizar_Archivo() {
+        clearConsole();
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
         BufferedWriter BFW = null;
@@ -199,7 +200,7 @@ public class Bodega extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jlabel = new javax.swing.JLabel();
         devolucion = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        dev = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -410,7 +411,7 @@ public class Bodega extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Sell_30px_1.png"))); // NOI18N
+        dev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Sell_30px_1.png"))); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(108, 110, 88));
@@ -427,14 +428,14 @@ public class Bodega extends javax.swing.JFrame {
                         .addComponent(jLabel11))
                     .addGroup(devolucionLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel10)))
+                        .addComponent(dev)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         devolucionLayout.setVerticalGroup(
             devolucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(devolucionLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(dev, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11))
         );
@@ -529,7 +530,60 @@ public class Bodega extends javax.swing.JFrame {
 
     private void devolucionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_devolucionMousePressed
         // TODO add your handling code here:
+        String nombre;
+        System.out.println();
+        System.out.println();
+
+        Nodo_Productos p = ptr;
+        Nodo_Productos u = ult;
+        if (tabla_bodega.getSelectedRow() != -1) {
+            while (!p.getNombre().equals(tabla_bodega.getValueAt(tabla_bodega.getSelectedRow(), 0))) {
+                p = p.getRlink();
+            }
+            String can = JOptionPane.showInputDialog("Cuantos desea eliminar");
+
+            try {
+                int N = Integer.parseInt(can);
+                if ((p.getCantidad() - N) < 0) {
+                    System.out.println("No se puede quitar esa cantidad");
+                } else {
+                    p.setCantidad(p.getCantidad() - N);
+                    if ((p.getCantidad()) == 0) {
+                        if (p == ptr) {
+                            ptr = p.getRlink();
+                        } else {
+                            Nodo_Productos aux = p;
+                            Nodo_Productos der = p.getRlink();
+                            Nodo_Productos izq = p.getLlink();
+                            if (p == u) {
+                                izq.setRlink(null);
+                                ult = izq;
+                            } else {
+                                der.setLlink(izq);
+                                izq.setRlink(der);
+                            }
+                        }
+                    }
+                    Actualizar_Archivo();
+
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"FEO");
+            }
+
+        }
+
+
     }//GEN-LAST:event_devolucionMousePressed
+    public void clearConsole() {
+        File fichero = new File("Archivo_productos.txt");
+        if (fichero.delete()) {
+            System.out.println("El fichero ha sido borrado satisfactoriamente");
+        } else {
+            System.out.println("El fichero no pudó ser borrado");
+        }
+    }
+
     public void Crear_Producto(int N) {
 
         String ruta = "archivo_productos.txt";
@@ -580,7 +634,7 @@ public class Bodega extends javax.swing.JFrame {
                 e2.printStackTrace();
             }
         }
-       
+
     }
 
     public void Tabla() {
@@ -620,7 +674,6 @@ public class Bodega extends javax.swing.JFrame {
 //                                    String info[] = {nombrev, cantidadv, codigo, precc, precv};
 //                                    modelo.addRow(info);
                                     Crear_Producto(N);
-                            
 
                                 }
                             } catch (Exception e) {
@@ -689,9 +742,9 @@ public class Bodega extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
     private javax.swing.JPanel add;
     private javax.swing.JTextField cantidad;
+    private javax.swing.JLabel dev;
     private javax.swing.JPanel devolucion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

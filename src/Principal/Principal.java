@@ -311,6 +311,28 @@ public class Principal extends javax.swing.JFrame {
 
     private void ingresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseEntered
         setColor(ingresar);
+        boolean sw = true;
+        Nodo_Usuario p = ptrU;
+        while (p != null && sw == true) {
+            if (pass_login.getText().equals(p.getPass()) && user_login.getText().toUpperCase().equals(p.getUser())) {
+                sw = false;
+            } else {
+                p = p.getLink();
+            }
+        }
+        if (p.getTipo().equals("Bodega") && sw == false) {
+            Bodega bo = new Bodega();
+            bo.setVisible(true);
+            this.dispose();
+        } else if (p.getTipo().equals("Ventas") && sw == false) {
+            Venta ve = new Venta();
+            ve.setVisible(true);
+            this.dispose();
+        } else if (sw == true) {
+            JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrecto", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+
+        System.out.println(p.getPass() + p.getUser());
         // TODO add your handling code here:
     }//GEN-LAST:event_ingresarMouseEntered
 
