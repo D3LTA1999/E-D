@@ -25,6 +25,7 @@ public class Bodega extends javax.swing.JFrame {
     DefaultTableModel modelo;
     String datos[][] = {};
     String columnas[] = {"Nombre", "Cantidad", "Código", "Precio de compra", "Precio de venta"};
+    Modo_Valorizacion MV = new Modo_Valorizacion();
 
     public Bodega() {
         initComponents();
@@ -97,6 +98,7 @@ public class Bodega extends javax.swing.JFrame {
 
                 }
                 br.close();
+                fr.close();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -116,7 +118,7 @@ public class Bodega extends javax.swing.JFrame {
     }
 
     public void Actualizar_Archivo() {
-       eliminarArchivo();
+        eliminarArchivo();
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
         BufferedWriter BFW = null;
@@ -147,6 +149,7 @@ public class Bodega extends javax.swing.JFrame {
                 System.out.println(cont++);
             }
             BFW.close();
+            archivo.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -531,7 +534,6 @@ public class Bodega extends javax.swing.JFrame {
         String nombre;
         System.out.println();
         System.out.println();
-
         Nodo_Productos p = ptr;
         Nodo_Productos u = ult;
         if (tabla_bodega.getSelectedRow() != -1) {
@@ -563,10 +565,9 @@ public class Bodega extends javax.swing.JFrame {
                         }
                     }
                     Actualizar_Archivo();
-
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,"FEO");
+                JOptionPane.showMessageDialog(null, "FEO");
             }
 
         }
@@ -583,16 +584,15 @@ public class Bodega extends javax.swing.JFrame {
     }
 
     public void Crear_Producto(int N) {
-        Modo_Valorizacion mv=new Modo_Valorizacion();
-        if(mv.modo==true){
+        Modo_Valorizacion mv = new Modo_Valorizacion();
+        if (mv.modo == true) {
             System.out.println("Pila");
-        }else{
+        } else {
             System.out.println("Cola");
         }
-        
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
-        BufferedWriter BFW;
+        BufferedWriter BFW = null;
         if (archivo_productos.exists()) {
             try {
                 BFW = new BufferedWriter(new FileWriter(archivo_productos, true));
@@ -626,9 +626,12 @@ public class Bodega extends javax.swing.JFrame {
             cantidad.setText("");
             pv.setText("");
             pc.setText("");
+            PW.close();
+            archivo.close();
+            BFW.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        } finally {   
             try {
                 if (null != archivo) {
                     archivo.close();
@@ -637,20 +640,35 @@ public class Bodega extends javax.swing.JFrame {
                 e2.printStackTrace();
             }
         }
+        
 
     }
 
     public void Tabla() {
         modelo = new DefaultTableModel(datos, columnas);
-        Nodo_Productos t = ptr;
-        if (ptr == null) {
-            JOptionPane.showMessageDialog(null, "Lista vacía");
+        MV.modo = false;
+        if (MV.modo == true) {
+            Nodo_Productos t = ult;
+            if (ult == null) {
+                JOptionPane.showMessageDialog(null, "Lista vacía");
+            } else {
+                while (t != null) {
+                    modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
+                    t = t.getLlink();
+                }
+            }
         } else {
-            while (t != null) {
-                modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
-                t = t.getRlink();
+            Nodo_Productos t = ptr;
+            if (ptr == null) {
+                JOptionPane.showMessageDialog(null, "Lista vacía");
+            } else {
+                while (t != null) {
+                    modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
+                    t = t.getRlink();
+                }
             }
         }
+
         tabla_bodega.setModel(modelo);
         System.out.println(modelo.getRowCount());
 

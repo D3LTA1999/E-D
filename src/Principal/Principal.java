@@ -1,4 +1,5 @@
 package Principal;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -314,6 +315,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void ingresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseEntered
         setColor(ingresar);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ingresarMouseEntered
+
+    private void ingresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseExited
+        resetColor(ingresar);
         boolean sw = true;
         Nodo_Usuario p = ptrU;
         while (p != null && sw == true) {
@@ -336,11 +342,6 @@ public class Principal extends javax.swing.JFrame {
         }
 
         System.out.println(p.getPass() + p.getUser());
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ingresarMouseEntered
-
-    private void ingresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ingresarMouseExited
-        resetColor(ingresar);
     }//GEN-LAST:event_ingresarMouseExited
 
     private void registrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registrarMouseClicked

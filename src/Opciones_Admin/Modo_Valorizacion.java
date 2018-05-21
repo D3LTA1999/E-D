@@ -40,6 +40,7 @@ public class Modo_Valorizacion extends javax.swing.JFrame {
             System.out.println("Sera cola");
             return false;
         }
+        
     }
 
     @SuppressWarnings("unchecked")
