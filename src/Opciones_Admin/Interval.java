@@ -10,11 +10,12 @@ package Opciones_Admin;
  * @author daalb
  */
 public class Interval {
+
     Interval in;
     Month mon;
     String info;
 
-    public Interval(Interval in, Month mon, String info) {
+    public Interval(String info, Interval in, Month mon) {
         this.in = in;
         this.mon = mon;
         this.info = info;
@@ -43,7 +44,5 @@ public class Interval {
     public void setInfo(String info) {
         this.info = info;
     }
-    
-    
-    
+
 }

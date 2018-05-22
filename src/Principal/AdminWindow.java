@@ -363,39 +363,102 @@ public class AdminWindow extends javax.swing.JFrame {
         pw = new PrintWriter(fw);
         pw.println(year);
         pw.close();
-        agg_listayear(leer_archivoyear(registro_year));
+        agg_listayear(registro_year);
     }
 
-    public String leer_archivoyear(File registro_year) throws FileNotFoundException, IOException {
-        FileReader fr = null;
-        BufferedReader br = null;
-        fr = new FileReader(registro_year);
-        br = new BufferedReader(fr);
-        String linea, lineaaux = "";
-        while ((linea = br.readLine()) != null) {
-            lineaaux = linea;
+    public void registar_intervalo(File registro_intervalos, int intervalo) throws IOException {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        fw = new FileWriter(registro_intervalos, true);
+        pw = new PrintWriter(fw);
+        if (intervalo == 0) {
+            for (int i = 0; i < 6; i++) {
+                pw.println(i + 1);
+            }
+        } else if (intervalo == 1) {
+            for (int i = 0; i < 4; i++) {
+                pw.println(i + 1);
+            }
+        } else if (intervalo == 2) {
+            for (int i = 0; i < 2; i++) {
+                pw.println(i + 1);
+            }
         }
-        br.close();
-        fr.close();
-        return lineaaux;
-
+        pw.close();
+        agg_listinterval(registro_intervalos);
     }
 
     Year ptry = null;
 
-    public void agg_listayear(String year) {
+    public void agg_listayear(File registro_year) throws FileNotFoundException, IOException {
         Year p = ptry;
-        if (ptry == null) {
-            ptry = new Year(null, null, year);
+        FileReader fr = null;
+        BufferedReader br = null;
+        fr = new FileReader(registro_year);
+        br = new BufferedReader(fr);
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            if (ptry == null) {
+                ptry = new Year(linea, null, null);
+                p = ptry;
+                System.out.println("Esta es la info de la principal " + p.getInfo());
+            } else {
+                Year q = new Year(linea, null, null);
+                p.setLinkyea(q);
+                System.out.println("Esta es la info de la principal " + p.getInfo());
+                p = q;
+            }
             p = ptry;
-
-        } else {
-            Year q = new Year(null, null, year);
-            p.setLinkyea(q);
-            p = q;
         }
-        p = ptry;
+        br.close();
+        fr.close();
+    }
 
+    public void agg_listinterval(File registro_intervalos) throws FileNotFoundException, IOException {
+        Year yy = ptry;
+        FileReader fr = null;
+        BufferedReader br = null;
+        fr = new FileReader(registro_intervalos);
+        br = new BufferedReader(fr);
+        String linea, lineaaux = "";
+        while ((linea = br.readLine()) != null) {
+            lineaaux = linea;
+            if (yy != null) {
+                Interval intv = new Interval(lineaaux, null, null);
+                if (yy.getLinkin() == null) {
+                    yy.setLinkin(intv);
+                } else {
+                    Interval intv2 = yy.getLinkin();
+                    while (intv2.getIn() != null) {
+                        intv2 = intv2.getIn();
+                    }
+                    intv2.setIn(intv);
+                }
+            }
+        }
+        br.close();
+        fr.close();
+        showlist();
+    }
+
+    public void showlist() {
+        System.out.println("ShowList");
+        if (ptry != null) {
+            Year p = ptry;
+            while (p != null) {
+                System.out.println(p.getInfo());
+                if (p.getLinkin() != null) {
+                    Interval z = p.getLinkin();
+                    while (z != null) {
+                        System.out.println("-->" + z.getInfo());
+                        z = z.getIn();
+                    }
+                }
+                p = p.getLinkyea();
+            }
+        } else {
+            System.out.println("No hay lista que mostrar");
+        }
     }
 
     public void agg_intervalos(String year, int intervalo) {
@@ -478,8 +541,10 @@ public class AdminWindow extends javax.swing.JFrame {
         } else {
             folder.mkdirs();
             File registro_years = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años\\Años.txt");
+            File registro_intervalos = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años\\" + year + "\\Intervalos.txt");
             try {
                 registrar_year(registro_years, year);
+                registar_intervalo(registro_intervalos, intervalo);
                 agg_intervalos(year, intervalo);
             } catch (IOException ex) {
                 Logger.getLogger(AdminWindow.class.getName()).log(Level.SEVERE, null, ex);

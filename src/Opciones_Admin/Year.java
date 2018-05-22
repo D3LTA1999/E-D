@@ -10,13 +10,14 @@ package Opciones_Admin;
  * @author daalb
  */
 public class Year {
+
     Year linkyea;
-    Interval in;
+    Interval linkin;
     String info;
 
-    public Year(Year yea, Interval in, String info) {
+    public Year(String info, Year yea, Interval in) {
         this.linkyea = yea;
-        this.in = in;
+        this.linkin = in;
         this.info = info;
     }
 
@@ -28,12 +29,12 @@ public class Year {
         this.linkyea = linkyea;
     }
 
-    public Interval getIn() {
-        return in;
+    public Interval getLinkin() {
+        return linkin;
     }
 
-    public void setIn(Interval in) {
-        this.in = in;
+    public void setLinkin(Interval in) {
+        this.linkin = in;
     }
 
     public String getInfo() {
@@ -43,6 +44,5 @@ public class Year {
     public void setInfo(String info) {
         this.info = info;
     }
-    
-    
+
 }
