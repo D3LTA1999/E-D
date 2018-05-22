@@ -18,9 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class AdminWindow extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdminWindow
-     */
+    MyIcon icon = new MyIcon();
+
     public AdminWindow() {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_User_Shield_96px.png")).getImage());
@@ -398,27 +397,81 @@ public class AdminWindow extends javax.swing.JFrame {
         p = ptry;
 
     }
-   public boolean b = true;
-    public void agg_intervalos(String year) {
-        Intervalo_Tiempo it = new Intervalo_Tiempo();
-        it.setVisible(true);
-        System.out.println(b);
-        if (b == true) {
-            for (int i = 0; i < 2; i++) {
-                System.out.println("Hello there:v");
+
+    public void agg_intervalos(String year, int intervalo) {
+        if (intervalo == 0) {
+            for (int i = 0; i < 6; i++) {
                 File folder = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year + "\\" + Integer.toString(i + 1));
                 folder.mkdirs();
-                agg_meses();
+                agg_meses(intervalo, folder, year);
+            }
+        } else if (intervalo == 1) {
+            for (int i = 0; i < 4; i++) {
+                File folder = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year + "\\" + Integer.toString(i + 1));
+                folder.mkdirs();
+                agg_meses(intervalo, folder, year);
+
+            }
+        } else if (intervalo == 2) {
+            for (int i = 0; i < 2; i++) {
+                File folder = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year + "\\" + Integer.toString(i + 1));
+                folder.mkdirs();
+                agg_meses(intervalo, folder, year);
             }
         }
     }
-    public void agg_meses(){
-        
+
+    public void agg_meses(int intervalo, File file, String year) {
+        if (intervalo == 0) {
+            for (int j = 0; j < 6; j++) {
+                for (int i = 0; i < 2; i++) {
+                    try {
+                        File mes = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year
+                                + "\\" + Integer.toString(j + 1) + "\\Mes " + Integer.toString(i + 1) + " .txt ");
+                        if (mes.createNewFile()) {
+                            System.out.println("Se creo el archivo");
+                        }
+                    } catch (Throwable e) {
+                        System.out.println("No se pudo crear");
+                    };
+                }
+            }
+        } else if (intervalo == 1) {
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 3; i++) {
+                    try {
+                        File mes = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year
+                                + "\\" + Integer.toString(j + 1) + "\\Mes " + Integer.toString(i + 1) + " .txt ");
+                        if (mes.createNewFile()) {
+                            System.out.println("Se creo el archivo");
+                        }
+                    } catch (Throwable e) {
+                        System.out.println("No se pudo crear");
+                    };
+                }
+            }
+        } else if (intervalo == 2) {
+            for (int j = 0; j < 2; j++) {
+                for (int i = 0; i < 6; i++) {
+                    try {
+                        File mes = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year
+                                + "\\" + Integer.toString(j + 1) + "\\Mes " + Integer.toString(i + 1) + " .txt ");
+                        if (mes.createNewFile()) {
+                            System.out.println("Se creo el archivo");
+                        }
+                    } catch (Throwable e) {
+                        System.out.println("No se pudo crear");
+                    };
+                }
+            }
+        }
+
     }
-    
 
     private void emp_nuevoyearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emp_nuevoyearMousePressed
         String year = JOptionPane.showInputDialog(null, "Ingrese el año", "Año", JOptionPane.INFORMATION_MESSAGE);
+        String[] op = {"Bimestral", "Trimestral", "Semestral"};
+        int intervalo = JOptionPane.showOptionDialog(null, "Escoja el intervalo de tiempo", "Intervalo", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, op, op[0]);
         File folder = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year);
         if (existe(folder) == true) {
             JOptionPane.showMessageDialog(null, "Ya existe este año", "Error", JOptionPane.ERROR_MESSAGE);
@@ -427,7 +480,7 @@ public class AdminWindow extends javax.swing.JFrame {
             File registro_years = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años\\Años.txt");
             try {
                 registrar_year(registro_years, year);
-                agg_intervalos(year);
+                agg_intervalos(year, intervalo);
             } catch (IOException ex) {
                 Logger.getLogger(AdminWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
