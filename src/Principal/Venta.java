@@ -422,8 +422,13 @@ public class Venta extends javax.swing.JFrame {
         Nodo_Productos p = ptr;
         Nodo_Productos u = ult;
         if (tabla_ventas.getSelectedRow() != -1) {
-            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+//            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+//                p = p.getRlink();
+//            }
+            int cont = 0;
+            while (cont < tabla_ventas.getSelectedRow()) {
                 p = p.getRlink();
+                cont++;
             }
             String can = JOptionPane.showInputDialog("Ingrese la cantidad de productos devueltos");
 
@@ -449,8 +454,13 @@ public class Venta extends javax.swing.JFrame {
         Nodo_Productos p = ptr;
         Nodo_Productos u = ult;
         if (tabla_ventas.getSelectedRow() != -1) {
-            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+//            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+//                p = p.getRlink();
+//            }
+            int cont = 0;
+            while (cont < tabla_ventas.getSelectedRow()) {
                 p = p.getRlink();
+                cont++;
             }
             String can = JOptionPane.showInputDialog("Cuantos desea vender");
             try {

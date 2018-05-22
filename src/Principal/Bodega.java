@@ -538,11 +538,15 @@ public class Bodega extends javax.swing.JFrame {
         Nodo_Productos p = ptr;
         Nodo_Productos u = ult;
         if (tabla_bodega.getSelectedRow() != -1) {
-            while (!p.getNombre().equals(tabla_bodega.getValueAt(tabla_bodega.getSelectedRow(), 0))) {
+//            while (!p.getNombre().equals(tabla_bodega.getValueAt(tabla_bodega.getSelectedRow(), 0))) {
+//                p = p.getRlink();
+//            }
+            int cont = 0;
+            while (cont < tabla_bodega.getSelectedRow()) {
                 p = p.getRlink();
+                cont++;
             }
             String can = JOptionPane.showInputDialog("Cuantos desea eliminar");
-
             try {
                 int N = Integer.parseInt(can);
                 if ((p.getCantidad() - N) < 0) {
@@ -685,28 +689,28 @@ public class Bodega extends javax.swing.JFrame {
                             try {
                                 float prev = Float.parseFloat(pv.getText());
                                 if (prev >= 0) {
-                                    Nodo_Productos p = ptr;
-                                    boolean sw = true;
-                                    while (p != null && sw == true) {
-                                        if (p.getNombre().equals(nombre.getText().toUpperCase())) {
-                                            sw = false;
-                                        } else {
-                                            p = p.getRlink();
-                                        }
-                                    }
-                                    if (sw == false) {
-                                        p.setCantidad(p.getCantidad() + cant);
-                                        p.setPrecioCompra(prec);
-                                        p.setPrecioVenta(prev);
-                                        Actualizar_Archivo();
-                                        nombre.setText("");
-                                        cantidad.setText("");
-                                        pv.setText("");
-                                        pc.setText("");
-
-                                    } else {
-                                        Crear_Producto(N);
-                                    }
+//                                    Nodo_Productos p = ptr;
+//                                    boolean sw = true;
+//                                    while (p != null && sw == true) {
+//                                        if (p.getNombre().equals(nombre.getText().toUpperCase())) {
+//                                            sw = false;
+//                                        } else {
+//                                            p = p.getRlink();
+//                                        }
+//                                    }
+//                                    if (sw == false) {
+//                                        p.setCantidad(p.getCantidad() + cant);
+//                                        p.setPrecioCompra(prec);
+//                                        p.setPrecioVenta(prev);
+//                                        Actualizar_Archivo();
+//                                        nombre.setText("");
+//                                        cantidad.setText("");
+//                                        pv.setText("");
+//                                        pc.setText("");
+//
+//                                    } else {
+                                    Crear_Producto(N);
+                                    //}
                                 }
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de venta valido", "Atencion", JOptionPane.ERROR_MESSAGE);
