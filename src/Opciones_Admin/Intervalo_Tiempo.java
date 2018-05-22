@@ -5,6 +5,7 @@
  */
 package Opciones_Admin;
 
+import Principal.AdminWindow;
 
 /**
  *
@@ -12,9 +13,8 @@ package Opciones_Admin;
  */
 public class Intervalo_Tiempo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Intervalo_Tiempo
-     */
+    public static boolean b = false;
+
     public Intervalo_Tiempo() {
         initComponents();
     }
@@ -234,20 +234,22 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
-
     private void bimestralMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bimestralMousePressed
-        // TODO add your handling code here:
+        AdminWindow aw = new AdminWindow();
+        System.out.println("Hellothere");
+        this.dispose();
+         aw.b=true;
     }//GEN-LAST:event_bimestralMousePressed
 
     private void trimestralMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trimestralMousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_trimestralMousePressed
 
     private void semestralMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_semestralMousePressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_semestralMousePressed
 
     /**
@@ -287,7 +289,7 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo1;
-    private javax.swing.JPanel bimestral;
+    public static javax.swing.JPanel bimestral;
     private javax.swing.JLabel exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

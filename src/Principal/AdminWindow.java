@@ -50,8 +50,6 @@ public class AdminWindow extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         mode_valo = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -64,6 +62,8 @@ public class AdminWindow extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(233, 247, 247));
         jPanel1.setForeground(new java.awt.Color(108, 110, 88));
@@ -143,12 +143,12 @@ public class AdminWindow extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(108, 110, 88));
         jLabel6.setText("Ver movimientos de bodega del año");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 230, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 230, 30));
 
         jLabel7.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(108, 110, 88));
         jLabel7.setText("Ver movimientos de ventas del año");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, 30));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 230, 30));
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(108, 110, 88));
@@ -189,28 +189,6 @@ public class AdminWindow extends javax.swing.JFrame {
 
         jPanel1.add(mode_valo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 230, 30));
 
-        jLabel4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(108, 110, 88));
-        jLabel4.setText("Seleccione intervalos de tiempo");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 230, 30));
-
         jLabel3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(108, 110, 88));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -250,7 +228,7 @@ public class AdminWindow extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, 30));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 230, 30));
 
         emp_nuevoyear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -329,7 +307,7 @@ public class AdminWindow extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 230, 30));
+        jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 230, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,7 +372,7 @@ public class AdminWindow extends javax.swing.JFrame {
         BufferedReader br = null;
         fr = new FileReader(registro_year);
         br = new BufferedReader(fr);
-        String linea, lineaaux="";
+        String linea, lineaaux = "";
         while ((linea = br.readLine()) != null) {
             lineaaux = linea;
         }
@@ -417,11 +395,27 @@ public class AdminWindow extends javax.swing.JFrame {
             p.setLinkyea(q);
             p = q;
         }
-        p=ptry;
-      
+        p = ptry;
 
     }
-
+   public boolean b = true;
+    public void agg_intervalos(String year) {
+        Intervalo_Tiempo it = new Intervalo_Tiempo();
+        it.setVisible(true);
+        System.out.println(b);
+        if (b == true) {
+            for (int i = 0; i < 2; i++) {
+                System.out.println("Hello there:v");
+                File folder = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year + "\\" + Integer.toString(i + 1));
+                folder.mkdirs();
+                agg_meses();
+            }
+        }
+    }
+    public void agg_meses(){
+        
+    }
+    
 
     private void emp_nuevoyearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emp_nuevoyearMousePressed
         String year = JOptionPane.showInputDialog(null, "Ingrese el año", "Año", JOptionPane.INFORMATION_MESSAGE);
@@ -433,6 +427,7 @@ public class AdminWindow extends javax.swing.JFrame {
             File registro_years = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años\\Años.txt");
             try {
                 registrar_year(registro_years, year);
+                agg_intervalos(year);
             } catch (IOException ex) {
                 Logger.getLogger(AdminWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -486,7 +481,6 @@ public class AdminWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -495,7 +489,6 @@ public class AdminWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
