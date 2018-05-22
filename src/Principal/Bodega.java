@@ -46,7 +46,7 @@ public class Bodega extends javax.swing.JFrame {
         Nodo_Productos p = ptr;
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
-        if (archivo_productos.exists()) {
+        if (archivo_productos.exists()){
             ptr = null;
             ult = null;
             String Nombre = "", PrecioCompra = "", PrecioVenta = " ", Cantidad = "", Random = "";

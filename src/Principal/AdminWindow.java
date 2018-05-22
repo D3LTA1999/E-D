@@ -1,7 +1,11 @@
 package Principal;
 
-import Opciones_Admin.Modo_Valorizacion;
+import Opciones_Admin.*;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +25,7 @@ public class AdminWindow extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_User_Shield_96px.png")).getImage());
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -42,7 +46,6 @@ public class AdminWindow extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         mode_valo = new javax.swing.JPanel();
@@ -53,7 +56,8 @@ public class AdminWindow extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
+        emp_nuevoyear = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -145,11 +149,6 @@ public class AdminWindow extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(108, 110, 88));
         jLabel7.setText("Ver movimientos de ventas del año");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, 30));
-
-        jLabel8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(108, 110, 88));
-        jLabel8.setText("Ver empleados");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 170, 30));
 
         jLabel9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(108, 110, 88));
@@ -253,18 +252,32 @@ public class AdminWindow extends javax.swing.JFrame {
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 230, 30));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        emp_nuevoyear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                emp_nuevoyearMousePressed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(108, 110, 88));
+        jLabel8.setText("Empezar nuevo año");
+
+        javax.swing.GroupLayout emp_nuevoyearLayout = new javax.swing.GroupLayout(emp_nuevoyear);
+        emp_nuevoyear.setLayout(emp_nuevoyearLayout);
+        emp_nuevoyearLayout.setHorizontalGroup(
+            emp_nuevoyearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(emp_nuevoyearLayout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+        emp_nuevoyearLayout.setVerticalGroup(
+            emp_nuevoyearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, emp_nuevoyearLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 100, 30));
+        jPanel1.add(emp_nuevoyear, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 140, 30));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -357,6 +370,77 @@ public class AdminWindow extends javax.swing.JFrame {
         mv.setVisible(true);
     }//GEN-LAST:event_mode_valoMousePressed
 
+    public boolean existe(File folder) {
+        if (folder.exists()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public void registrar_year(File registro_year, String year) throws IOException {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        fw = new FileWriter(registro_year, true);
+        pw = new PrintWriter(fw);
+        pw.println(year);
+        pw.close();
+        agg_listayear(leer_archivoyear(registro_year));
+    }
+
+    public String leer_archivoyear(File registro_year) throws FileNotFoundException, IOException {
+        FileReader fr = null;
+        BufferedReader br = null;
+        fr = new FileReader(registro_year);
+        br = new BufferedReader(fr);
+        String linea, lineaaux="";
+        while ((linea = br.readLine()) != null) {
+            lineaaux = linea;
+        }
+        br.close();
+        fr.close();
+        return lineaaux;
+
+    }
+
+    Year ptry = null;
+
+    public void agg_listayear(String year) {
+        Year p = ptry;
+        if (ptry == null) {
+            ptry = new Year(null, null, year);
+            p = ptry;
+
+        } else {
+            Year q = new Year(null, null, year);
+            p.setLinkyea(q);
+            p = q;
+        }
+        p=ptry;
+      
+
+    }
+
+
+    private void emp_nuevoyearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emp_nuevoyearMousePressed
+        String year = JOptionPane.showInputDialog(null, "Ingrese el año", "Año", JOptionPane.INFORMATION_MESSAGE);
+        File folder = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años" + "\\" + year);
+        if (existe(folder) == true) {
+            JOptionPane.showMessageDialog(null, "Ya existe este año", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            folder.mkdirs();
+            File registro_years = new File("C:\\Users\\daalb\\Documents\\NetBeansProjects\\E&D\\Años\\Años.txt");
+            try {
+                registrar_year(registro_years, year);
+            } catch (IOException ex) {
+                Logger.getLogger(AdminWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }//GEN-LAST:event_emp_nuevoyearMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -394,6 +478,7 @@ public class AdminWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo1;
+    private javax.swing.JPanel emp_nuevoyear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -414,7 +499,6 @@ public class AdminWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel mode_valo;

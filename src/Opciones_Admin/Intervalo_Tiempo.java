@@ -102,9 +102,9 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 120));
 
-        bimestral.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                bimestralKeyPressed(evt);
+        bimestral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                bimestralMousePressed(evt);
             }
         });
 
@@ -141,9 +141,9 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
 
         jPanel1.add(bimestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
-        trimestral.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                trimestralKeyPressed(evt);
+        trimestral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                trimestralMousePressed(evt);
             }
         });
 
@@ -179,9 +179,9 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
 
         jPanel1.add(trimestral, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, -1));
 
-        semestral.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                semestralKeyPressed(evt);
+        semestral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                semestralMousePressed(evt);
             }
         });
 
@@ -238,19 +238,17 @@ public class Intervalo_Tiempo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitMouseClicked
 
-    private void bimestralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bimestralKeyPressed
-
-        
-
-    }//GEN-LAST:event_bimestralKeyPressed
-
-    private void trimestralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_trimestralKeyPressed
+    private void bimestralMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bimestralMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_trimestralKeyPressed
+    }//GEN-LAST:event_bimestralMousePressed
 
-    private void semestralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_semestralKeyPressed
+    private void trimestralMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trimestralMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_semestralKeyPressed
+    }//GEN-LAST:event_trimestralMousePressed
+
+    private void semestralMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_semestralMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_semestralMousePressed
 
     /**
      * @param args the command line arguments
