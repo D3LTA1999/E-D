@@ -452,9 +452,9 @@ public class Venta extends javax.swing.JFrame {
             while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
                 p = p.getRlink();
             }
-
+            String can = JOptionPane.showInputDialog("Cuantos desea vender");
             try {
-                int N = Integer.parseInt(cod.getText());
+                int N = Integer.parseInt(can);
                 if ((p.getCantidad() - N) < 0) {
                     System.out.println("No se puede quitar esa cantidad");
                 } else {
@@ -507,20 +507,20 @@ public class Venta extends javax.swing.JFrame {
                 trs.setRowFilter(RowFilter.regexFilter("(?i)" + nombre.getText(), 0));
             }
         });
-        trs=new TableRowSorter(modelo);
+        trs = new TableRowSorter(modelo);
         tabla_ventas.setRowSorter(trs);
-                
+
 
     }//GEN-LAST:event_nombreKeyTyped
 
     private void codKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codKeyTyped
-       cod.addKeyListener(new KeyAdapter() {
+        cod.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 trs.setRowFilter(RowFilter.regexFilter("(?i)" + cod.getText(), 2));
             }
         });
-        trs=new TableRowSorter(modelo);
+        trs = new TableRowSorter(modelo);
         tabla_ventas.setRowSorter(trs);
     }//GEN-LAST:event_codKeyTyped
 
