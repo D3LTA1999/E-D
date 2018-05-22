@@ -26,6 +26,7 @@ public class Bodega extends javax.swing.JFrame {
     String datos[][] = {};
     String columnas[] = {"Nombre", "Cantidad", "Código", "Precio de compra", "Precio de venta"};
     Modo_Valorizacion MV = new Modo_Valorizacion();
+    boolean modo;
 
     public Bodega() {
         initComponents();
@@ -34,8 +35,10 @@ public class Bodega extends javax.swing.JFrame {
         resetColor(add);
         resetColor(devolucion);
         resetColor(devolucion);
+
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Trolley_96px.png")).getImage());
         modelo = new DefaultTableModel(datos, columnas);
+        MODO();
         Actualizar();
         Tabla();
 
@@ -46,7 +49,7 @@ public class Bodega extends javax.swing.JFrame {
         Nodo_Productos p = ptr;
         String ruta = "archivo_productos.txt";
         File archivo_productos = new File(ruta);
-        if (archivo_productos.exists()){
+        if (archivo_productos.exists()) {
             ptr = null;
             ult = null;
             String Nombre = "", PrecioCompra = "", PrecioVenta = " ", Cantidad = "", Random = "";
@@ -590,7 +593,7 @@ public class Bodega extends javax.swing.JFrame {
 
     public void Crear_Producto(int N) {
         Modo_Valorizacion mv = new Modo_Valorizacion();
-        if (mv.modo == true) {
+        if (modo == true) {
             System.out.println("Pila");
         } else {
             System.out.println("Cola");
@@ -650,8 +653,8 @@ public class Bodega extends javax.swing.JFrame {
 
     public void Tabla() {
         modelo = new DefaultTableModel(datos, columnas);
-        MV.modo = false;
-        if (MV.modo == true) {
+
+        if (modo == true) {
             Nodo_Productos t = ult;
             if (ult == null) {
                 JOptionPane.showMessageDialog(null, "Lista vacía");
@@ -801,5 +804,19 @@ public class Bodega extends javax.swing.JFrame {
 
     private void ActualizarDatos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void MODO() {
+        String nombre = JOptionPane.showInputDialog("modo");
+        if (nombre != null) {
+            if (nombre.toUpperCase().equals("PILA")) {
+                modo = true;
+            } else {
+                if (nombre.toUpperCase().equals("COLA")) {
+                    modo = false;
+                }
+            }
+        }
+
     }
 }

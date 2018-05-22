@@ -29,6 +29,7 @@ public class Venta extends javax.swing.JFrame {
     String columnas[] = {"Nombre", "Cantidad", "Código", "Precio"};
     Nodo_Productos ptr = null, ult = null;
     Modo_Valorizacion MV = new Modo_Valorizacion();
+    boolean modo;
 
     public Venta() {
         initComponents();
@@ -39,6 +40,7 @@ public class Venta extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/icons8_Money_Box_80px.png")).getImage());
         nombre.setEnabled(false);
         cod.setEnabled(false);
+        MODO();
         Actualizar();
         Tabla();
 
@@ -550,8 +552,8 @@ public class Venta extends javax.swing.JFrame {
 //            }
             nombre = (String) tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0);
             int cont = 0;
-            MV.modo = true;
-            if (MV.modo == true) {
+            
+            if (modo == true) {
                 while (cont < tabla_ventas.getSelectedRow()) {
                     u = u.getLlink();
                     cont++;
@@ -567,7 +569,7 @@ public class Venta extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "FEO");
                 }
             } else {
-                if (MV.modo == false) {
+                if (modo == false) {
                     while (cont < tabla_ventas.getSelectedRow()) {
                         p = p.getRlink();
                         cont++;
@@ -760,8 +762,8 @@ public class Venta extends javax.swing.JFrame {
 
     public void Tabla() {
         modelo = new DefaultTableModel(datos, columnas);
-        MV.modo = false;
-        if (MV.modo == true) {
+       
+        if (modo == true) {
             Nodo_Productos t = ult;
             if (ult == null) {
                 JOptionPane.showMessageDialog(null, "Lista vacía");
@@ -786,6 +788,7 @@ public class Venta extends javax.swing.JFrame {
         System.out.println(modelo.getRowCount());
 
     }
+    
 
     /**
      * @param args the command line arguments
@@ -894,5 +897,19 @@ public class Venta extends javax.swing.JFrame {
             }
             System.out.println(val);
         }
+    }
+
+    private void MODO() {
+        String nombre = JOptionPane.showInputDialog("modo");
+        if (nombre != null) {
+            if (nombre.toUpperCase().equals("PILA")) {
+                modo = true;
+            } else {
+                if (nombre.toUpperCase().equals("COLA")) {
+                    modo = false;
+                }
+            }
+        }
+
     }
 }
