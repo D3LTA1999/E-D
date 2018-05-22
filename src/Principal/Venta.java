@@ -1,5 +1,6 @@
 package Principal;
 
+import Opciones_Admin.Modo_Valorizacion;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -27,6 +28,7 @@ public class Venta extends javax.swing.JFrame {
     String datos[][] = {};
     String columnas[] = {"Nombre", "Cantidad", "Código", "Precio"};
     Nodo_Productos ptr = null, ult = null;
+    Modo_Valorizacion MV = new Modo_Valorizacion();
 
     public Venta() {
         initComponents();
@@ -446,6 +448,95 @@ public class Venta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_reembolsoMousePressed
 
+    public void empanadaizq(int N, String Nombre) {
+        int cont = 0;
+        float val = 0;
+        Nodo_Productos u = ult;
+        while (u != null) {
+            if (u.getNombre().equals(Nombre)) {
+                cont = cont + u.getCantidad();
+            }
+            u = u.getLlink();
+        }
+        System.out.println(cont);
+        if (N > cont) {
+
+        } else {
+            u = ult;
+            while (u != null) {
+                if (u.getNombre().equals(Nombre) && N != 0) {
+                    System.out.println("entra");
+                    val = val + u.getPrecioCompra();
+                    u.setCantidad(u.getCantidad() - 1);
+                    if ((u.getCantidad()) == 0) {
+                        if (u == ult) {
+                            ult = u.getLlink();
+                            ult.setRlink(null);
+                        } else {
+                            Nodo_Productos der = u.getRlink();
+                            Nodo_Productos izq = u.getLlink();
+                            if (ptr == u) {
+                                ptr = der;
+                                der.setLlink(null);
+                            } else {
+                                der.setLlink(izq);
+                                izq.setRlink(der);
+                            }
+                        }
+                    }
+                    N = N - 1;
+                    u = ult;
+                } else {
+                    u = u.getLlink();
+                }
+            }
+            System.out.println(val);
+        }
+
+    }
+
+    public void izq(Nodo_Productos u, int N) {
+        if ((u.getCantidad() - N) < 0) {
+//            N = N - u.getCantidad();
+//            u = u.getLlink();
+//            int cont = 0;
+//            boolean sw = true;
+//            while (!u.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0)) && u != null) {
+//                u = u.getLlink();
+//                cont++;
+//                if (u.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+//                    sw = true;
+//                }
+//            }
+//            if (sw == true) {
+//                izq(u, N);
+//            } else {
+//                System.out.println("No se puede vender esa cantidad");
+//            }
+        } else {
+            u.setCantidad(u.getCantidad() - N);
+            if ((u.getCantidad()) == 0) {
+                if (u == ult) {
+                    ult = u.getLlink();
+                    ult.setRlink(null);
+                } else {
+                    Nodo_Productos aux = u;
+                    Nodo_Productos der = u.getRlink();
+                    Nodo_Productos izq = u.getLlink();
+                    if (ptr == u) {
+                        ptr = der;
+                        der.setLlink(null);
+                    } else {
+                        der.setLlink(izq);
+                        izq.setRlink(der);
+                    }
+                }
+            }
+            Actualizar_Archivo();
+        }
+    }
+
+
     private void buyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMousePressed
         // TODO add your handling code here:
         String nombre;
@@ -457,38 +548,42 @@ public class Venta extends javax.swing.JFrame {
 //            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
 //                p = p.getRlink();
 //            }
+            nombre = (String) tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0);
             int cont = 0;
-            while (cont < tabla_ventas.getSelectedRow()) {
-                p = p.getRlink();
-                cont++;
-            }
-            String can = JOptionPane.showInputDialog("Cuantos desea vender");
-            try {
-                int N = Integer.parseInt(can);
-                if ((p.getCantidad() - N) < 0) {
-                    System.out.println("No se puede quitar esa cantidad");
-                } else {
-                    p.setCantidad(p.getCantidad() - N);
-                    if ((p.getCantidad()) == 0) {
-                        if (p == ptr) {
-                            ptr = p.getRlink();
-                        } else {
-                            Nodo_Productos aux = p;
-                            Nodo_Productos der = p.getRlink();
-                            Nodo_Productos izq = p.getLlink();
-                            if (p == u) {
-                                izq.setRlink(null);
-                                ult = izq;
-                            } else {
-                                der.setLlink(izq);
-                                izq.setRlink(der);
-                            }
-                        }
-                    }
-                    Actualizar_Archivo();
+            MV.modo = true;
+            if (MV.modo == true) {
+                while (cont < tabla_ventas.getSelectedRow()) {
+                    u = u.getLlink();
+                    cont++;
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "FEO");
+                String can = JOptionPane.showInputDialog("Cuantos desea vender");
+                try {
+                    int N = Integer.parseInt(can);
+                    // izq(u, N);
+
+                    empanadaizq(N, nombre);
+                    Actualizar_Archivo();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "FEO");
+                }
+            } else {
+                if (MV.modo == false) {
+                    while (cont < tabla_ventas.getSelectedRow()) {
+                        p = p.getRlink();
+                        cont++;
+                    }
+                    String can = JOptionPane.showInputDialog("Cuantos desea vender");
+                    try {
+                        int N = Integer.parseInt(can);
+                        empanadader(N, nombre);
+                        Actualizar_Archivo();
+//                            Actualizar_Archivo();
+//                        }
+//
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "FEO");
+                    }
+                }
             }
 
         }
@@ -665,13 +760,26 @@ public class Venta extends javax.swing.JFrame {
 
     public void Tabla() {
         modelo = new DefaultTableModel(datos, columnas);
-        Nodo_Productos t = ptr;
-        if (ptr == null) {
-            JOptionPane.showMessageDialog(null, "Lista vacía");
+        MV.modo = false;
+        if (MV.modo == true) {
+            Nodo_Productos t = ult;
+            if (ult == null) {
+                JOptionPane.showMessageDialog(null, "Lista vacía");
+            } else {
+                while (t != null) {
+                    modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
+                    t = t.getLlink();
+                }
+            }
         } else {
-            while (t != null) {
-                modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
-                t = t.getRlink();
+            Nodo_Productos t = ptr;
+            if (ptr == null) {
+                JOptionPane.showMessageDialog(null, "Lista vacía");
+            } else {
+                while (t != null) {
+                    modelo.addRow(new Object[]{t.getNombre(), t.getCantidad(), t.getRamdom(), t.getPrecioCompra(), t.getPrecioVenta()});
+                    t = t.getRlink();
+                }
             }
         }
         tabla_ventas.setModel(modelo);
@@ -739,4 +847,52 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JPanel reembolso;
     private javax.swing.JTable tabla_ventas;
     // End of variables declaration//GEN-END:variables
+
+    private void empanadader(int N, String Nombre) {
+        int cont = 0;
+        float val = 0;
+        Nodo_Productos p = ptr;
+        while (p != null) {
+            if (p.getNombre().equals(Nombre)) {
+                cont = cont + p.getCantidad();
+            }
+            p = p.getRlink();
+        }
+
+        System.out.println(cont);
+
+        if (N > cont) {
+
+        } else {
+            p = ptr;
+            while (p != null) {
+                if (p.getNombre().equals(Nombre) && N != 0) {
+                    val = val + p.getPrecioCompra();
+                    p.setCantidad(p.getCantidad() - 1);
+                    if ((p.getCantidad()) == 0) {
+                        if (p == ptr) {
+                            ptr = p.getRlink();
+                        } else {
+                            Nodo_Productos aux = p;
+                            Nodo_Productos der = p.getRlink();
+                            Nodo_Productos izq = p.getLlink();
+                            if (p == ult) {
+                                izq.setRlink(null);
+                                ult = izq;
+                            } else {
+                                der.setLlink(izq);
+                                izq.setRlink(der);
+                            }
+                        }
+                    }
+                    N = N - 1;
+                    p = ptr;
+
+                } else {
+                    p = p.getRlink();
+                }
+            }
+            System.out.println(val);
+        }
+    }
 }
