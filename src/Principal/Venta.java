@@ -187,11 +187,17 @@ public class Venta extends javax.swing.JFrame {
         buy.setBackground(new java.awt.Color(233, 247, 247));
         buy.setForeground(new java.awt.Color(164, 207, 190));
         buy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buyMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 buyMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 buyMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buyMousePressed(evt);
             }
         });
 
@@ -361,6 +367,54 @@ public class Venta extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_reembolsoMousePressed
+
+    private void buyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buyMouseClicked
+
+    private void buyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyMousePressed
+        // TODO add your handling code here:
+         String nombre;
+        System.out.println();
+        System.out.println();
+        Nodo_Productos p = ptr;
+        Nodo_Productos u = ult;
+        if (tabla_ventas.getSelectedRow() != -1) {
+            while (!p.getNombre().equals(tabla_ventas.getValueAt(tabla_ventas.getSelectedRow(), 0))) {
+                p = p.getRlink();
+            }
+           
+            try {
+                int N = Integer.parseInt(cantidad.getText());
+                if ((p.getCantidad() - N) < 0) {
+                    System.out.println("No se puede quitar esa cantidad");
+                } else {
+                    p.setCantidad(p.getCantidad() - N);
+                    if ((p.getCantidad()) == 0) {
+                        if (p == ptr) {
+                            ptr = p.getRlink();
+                        } else {
+                            Nodo_Productos aux = p;
+                            Nodo_Productos der = p.getRlink();
+                            Nodo_Productos izq = p.getLlink();
+                            if (p == u) {
+                                izq.setRlink(null);
+                                ult = izq;
+                            } else {
+                                der.setLlink(izq);
+                                izq.setRlink(der);
+                            }
+                        }
+                    }
+                    Actualizar_Archivo();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "FEO");
+            }
+
+        }
+        
+    }//GEN-LAST:event_buyMousePressed
 
     public void eliminarArchivo() {
         File fichero = new File("Archivo_productos.txt");

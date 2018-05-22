@@ -526,6 +526,7 @@ public class Bodega extends javax.swing.JFrame {
         }
         Registrar(N);
         Actualizar();
+
         // TODO add your handling code here:
     }//GEN-LAST:event_addMousePressed
 
@@ -621,7 +622,7 @@ public class Bodega extends javax.swing.JFrame {
                     p = p.getRlink();
                 }
             }
-            PW.println(nombre.getText() + ";" + cantidad.getText() + ";" + pc.getText() + ";" + pv.getText() + ";" + R + ";");
+            PW.println(nombre.getText().toUpperCase() + ";" + cantidad.getText() + ";" + pc.getText() + ";" + pv.getText() + ";" + R + ";");
             nombre.setText("");
             cantidad.setText("");
             pv.setText("");
@@ -631,7 +632,7 @@ public class Bodega extends javax.swing.JFrame {
             BFW.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {   
+        } finally {
             try {
                 if (null != archivo) {
                     archivo.close();
@@ -640,7 +641,6 @@ public class Bodega extends javax.swing.JFrame {
                 e2.printStackTrace();
             }
         }
-        
 
     }
 
@@ -685,7 +685,28 @@ public class Bodega extends javax.swing.JFrame {
                             try {
                                 float prev = Float.parseFloat(pv.getText());
                                 if (prev >= 0) {
-                                    Crear_Producto(N);
+                                    Nodo_Productos p = ptr;
+                                    boolean sw = true;
+                                    while (p != null && sw == true) {
+                                        if (p.getNombre().equals(nombre.getText().toUpperCase())) {
+                                            sw = false;
+                                        } else {
+                                            p = p.getRlink();
+                                        }
+                                    }
+                                    if (sw == false) {
+                                        p.setCantidad(p.getCantidad() + cant);
+                                        p.setPrecioCompra(prec);
+                                        p.setPrecioVenta(prev);
+                                        Actualizar_Archivo();
+                                        nombre.setText("");
+                                        cantidad.setText("");
+                                        pv.setText("");
+                                        pc.setText("");
+
+                                    } else {
+                                        Crear_Producto(N);
+                                    }
                                 }
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "¡ERROR! Ingrese un precio de venta valido", "Atencion", JOptionPane.ERROR_MESSAGE);
@@ -773,4 +794,8 @@ public class Bodega extends javax.swing.JFrame {
     private javax.swing.JTextField pv;
     private javax.swing.JTable tabla_bodega;
     // End of variables declaration//GEN-END:variables
+
+    private void ActualizarDatos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
